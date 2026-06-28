@@ -17,12 +17,17 @@
 
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; max-width: 420px; margin: 0 auto; padding-bottom: var(--nav-h); }
 
-    .page { display: none; padding: 24px 20px 16px; animation: fadeIn 0.2s ease; }
+    /* PÁGINAS */
+    .page { display: none; padding: 24px 20px 16px; animation: fadeIn 0.25s ease; }
     .page.active { display: block; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ONBOARDING (pantalla completa sin nav) */
+    #page-onboarding { padding: 0; min-height: 100vh; display: none; flex-direction: column; }
+    #page-onboarding.active { display: flex; }
 
     /* NAV */
-    .nav { position: fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:420px; background:rgba(13,13,13,0.96); backdrop-filter:blur(20px); border-top:0.5px solid var(--border); display:flex; height:var(--nav-h); z-index:100; }
+    .nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:420px; background:rgba(13,13,13,0.96); backdrop-filter:blur(20px); border-top:0.5px solid var(--border); display:flex; height:var(--nav-h); z-index:100; }
     .nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:none; background:transparent; color:var(--muted); font-family:'Inter',sans-serif; font-size:10px; font-weight:600; cursor:pointer; transition:color 0.2s; padding-bottom:6px; }
     .nav-btn .icon { font-size:22px; line-height:1; }
     .nav-btn.active { color:var(--accent); }
@@ -36,13 +41,7 @@
     .tbtn { border:none; background:transparent; color:var(--muted); font-size:11px; font-weight:600; padding:4px 12px; border-radius:16px; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s; }
     .tbtn.active { background:var(--accent); color:#fff; }
 
-    /* GREETING */
-    .greeting { margin-bottom:28px; }
-    .greeting h1 { font-size:28px; font-weight:900; letter-spacing:-1.5px; line-height:1.1; }
-    .greeting h1 em { font-style:normal; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .greeting p { font-size:13px; color:var(--muted); margin-top:6px; }
-
-    /* STAT CARDS */
+    /* CARDS */
     .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
     .card { background:var(--card); border:0.5px solid var(--border); border-radius:16px; padding:16px; }
     .card.accent { background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 40%,#000)); border-color:transparent; }
@@ -77,7 +76,7 @@
     .bars { display:flex; align-items:flex-end; gap:8px; height:90px; }
     .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; height:100%; }
     .bar-track { flex:1; width:100%; background:var(--border); border-radius:6px; display:flex; align-items:flex-end; overflow:hidden; }
-    .bar-fill { width:100%; border-radius:6px; background:linear-gradient(180deg,var(--accent2),var(--accent)); transition: height 0.5s ease; }
+    .bar-fill { width:100%; border-radius:6px; background:linear-gradient(180deg,var(--accent2),var(--accent)); transition:height 0.5s ease; }
     .bar-fill.today { background:linear-gradient(180deg,#fff,var(--accent2)); }
     .bar-day { font-size:10px; color:var(--muted); font-weight:600; }
     .bar-day.today { color:var(--accent2); }
@@ -87,13 +86,13 @@
     .page-title span { color:var(--accent); }
     .page-sub { font-size:13px; color:var(--muted); margin-bottom:24px; }
 
-    /* EMPTY STATE */
+    /* EMPTY */
     .empty { background:var(--card); border:0.5px dashed var(--border); border-radius:20px; padding:40px 20px; display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; margin-bottom:20px; }
     .empty-icon { font-size:48px; }
     .empty-title { font-size:16px; font-weight:700; }
     .empty-sub { font-size:13px; color:var(--muted); line-height:1.5; }
 
-    /* BTN */
+    /* BTNS */
     .btn-main { width:100%; padding:16px; background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#000)); border:none; border-radius:16px; color:#fff; font-size:15px; font-weight:700; font-family:'Inter',sans-serif; cursor:pointer; letter-spacing:0.3px; transition:opacity 0.2s,transform 0.1s; margin-bottom:10px; }
     .btn-main:hover { opacity:0.88; }
     .btn-main:active { transform:scale(0.98); }
@@ -103,7 +102,7 @@
     /* MODAL */
     .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); z-index:200; align-items:flex-end; justify-content:center; }
     .modal-overlay.open { display:flex; }
-    .modal { background:#161616; border:0.5px solid var(--border); border-radius:24px 24px 0 0; padding:24px 20px 40px; width:100%; max-width:420px; animation:slideUp 0.3s ease; }
+    .modal { background:#161616; border:0.5px solid var(--border); border-radius:24px 24px 0 0; padding:24px 20px 40px; width:100%; max-width:420px; animation:slideUp 0.3s ease; max-height:90vh; overflow-y:auto; }
     @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
     .modal-title { font-size:18px; font-weight:800; letter-spacing:-0.5px; margin-bottom:20px; }
     .modal-title span { color:var(--accent); }
@@ -111,18 +110,13 @@
     /* FORM */
     .field { margin-bottom:14px; }
     .field label { display:block; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
-    .field input, .field select {
-      width:100%; padding:14px 16px;
-      background:var(--card); border:0.5px solid var(--border);
-      border-radius:12px; color:var(--text);
-      font-size:15px; font-family:'Inter',sans-serif;
-      outline:none; transition:border-color 0.2s;
-    }
+    .field input, .field select { width:100%; padding:14px 16px; background:var(--card); border:0.5px solid var(--border); border-radius:12px; color:var(--text); font-size:15px; font-family:'Inter',sans-serif; outline:none; transition:border-color 0.2s; }
     .field input:focus, .field select:focus { border-color:var(--accent); }
     .field select option { background:#161616; }
     .fields-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+    .fields-row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 
-    /* EXERCISE CARDS */
+    /* EXERCISE */
     .ex-card { background:var(--card); border:0.5px solid var(--border); border-radius:14px; padding:14px 16px; margin-bottom:8px; }
     .ex-card-top { display:flex; justify-content:space-between; align-items:flex-start; }
     .ex-card-name { font-size:14px; font-weight:700; }
@@ -131,7 +125,7 @@
     .ex-delete:hover { color:#f87171; }
     .pr-badge { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--accent2); border:0.5px solid var(--accent); margin-top:6px; display:inline-block; }
 
-    /* PESO CARDS */
+    /* PESO */
     .peso-item { background:var(--card); border:0.5px solid var(--border); border-radius:14px; padding:14px 16px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
     .peso-val { font-size:22px; font-weight:800; letter-spacing:-1px; }
     .peso-val span { font-size:13px; font-weight:400; opacity:0.6; }
@@ -141,8 +135,6 @@
     .peso-delta.sube { color:#f87171; }
     .peso-delete { background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; }
     .peso-delete:hover { color:#f87171; }
-
-    /* WEIGHT TREND */
     .weight-card { background:var(--card); border:0.5px solid var(--border); border-radius:16px; padding:16px; margin-bottom:16px; }
     .trend-wrap { display:flex; justify-content:space-between; align-items:flex-end; height:80px; margin-top:12px; position:relative; }
     .trend-wrap::after { content:''; position:absolute; bottom:22px; left:0; right:0; height:0.5px; background:var(--border); }
@@ -151,14 +143,246 @@
     .tw-dot { width:9px; height:9px; border-radius:50%; background:var(--muted); }
     .tw-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); width:11px; height:11px; }
     .tw-label { font-size:10px; color:var(--muted); }
-
     .divider { height:0.5px; background:var(--border); margin:20px 0; }
+
+    /* ══════════════════════════
+       ONBOARDING
+    ══════════════════════════ */
+    .ob-screen { display:none; flex-direction:column; min-height:100vh; padding:40px 24px 48px; }
+    .ob-screen.ob-active { display:flex; }
+
+    .ob-logo { font-size:32px; font-weight:900; letter-spacing:-2px; margin-bottom:6px; }
+    .ob-logo span { color:var(--accent); }
+    .ob-tagline { font-size:14px; color:var(--muted); margin-bottom:48px; }
+
+    .ob-hero { flex:1; display:flex; flex-direction:column; justify-content:center; }
+    .ob-step-label { font-size:11px; font-weight:700; color:var(--accent2); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:12px; }
+    .ob-title { font-size:30px; font-weight:900; letter-spacing:-1.5px; line-height:1.1; margin-bottom:10px; }
+    .ob-title em { font-style:normal; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .ob-sub { font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:32px; }
+
+    .ob-field { margin-bottom:16px; }
+    .ob-field label { display:block; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    .ob-field input, .ob-field select {
+      width:100%; padding:16px 18px;
+      background:rgba(255,255,255,0.05);
+      border:0.5px solid var(--border);
+      border-radius:14px; color:var(--text);
+      font-size:17px; font-family:'Inter',sans-serif;
+      outline:none; transition:border-color 0.2s;
+    }
+    .ob-field input:focus, .ob-field select:focus { border-color:var(--accent); }
+    .ob-field select option { background:#161616; }
+
+    .ob-options { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+    .ob-option {
+      padding:16px 18px;
+      background:rgba(255,255,255,0.04);
+      border:0.5px solid var(--border);
+      border-radius:14px;
+      cursor:pointer; transition:all 0.2s;
+      display:flex; align-items:center; gap:14px;
+    }
+    .ob-option:hover { border-color:var(--accent); background:rgba(255,255,255,0.07); }
+    .ob-option.selected { border-color:var(--accent); background:rgba(232,64,42,0.12); }
+    .ob-option-icon { font-size:24px; }
+    .ob-option-text {}
+    .ob-option-title { font-size:14px; font-weight:700; }
+    .ob-option-sub { font-size:12px; color:var(--muted); margin-top:2px; }
+
+    .ob-fields2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+
+    .ob-dots { display:flex; gap:6px; justify-content:center; margin-bottom:24px; }
+    .ob-dot { width:6px; height:6px; border-radius:3px; background:var(--border); transition:all 0.3s; }
+    .ob-dot.active { width:20px; background:var(--accent); }
+
+    /* PERFIL PAGE */
+    .perfil-avatar {
+      width:80px; height:80px; border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 40%,#000));
+      display:flex; align-items:center; justify-content:center;
+      font-size:32px; margin-bottom:16px;
+    }
+    .perfil-name { font-size:24px; font-weight:900; letter-spacing:-1px; }
+    .perfil-goal { font-size:13px; color:var(--muted); margin-top:4px; margin-bottom:28px; }
+    .perfil-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
+    .perfil-stat { background:var(--card); border:0.5px solid var(--border); border-radius:14px; padding:14px; text-align:center; }
+    .perfil-stat-val { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
+    .perfil-stat-lbl { font-size:10px; color:var(--muted); margin-top:4px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+    .perfil-section { background:var(--card); border:0.5px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px; }
+    .perfil-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:0.5px solid var(--border); }
+    .perfil-row:last-child { border-bottom:none; padding-bottom:0; }
+    .perfil-row-label { font-size:13px; color:var(--muted); }
+    .perfil-row-val { font-size:13px; font-weight:600; }
+    .danger-btn { width:100%; padding:14px; background:rgba(248,113,113,0.08); border:0.5px solid rgba(248,113,113,0.3); border-radius:16px; color:#f87171; font-size:14px; font-weight:600; font-family:'Inter',sans-serif; cursor:pointer; transition:all 0.2s; margin-bottom:10px; }
+    .danger-btn:hover { background:rgba(248,113,113,0.15); }
+
+    /* PROGRESS BAR */
+    .prog-bar-wrap { background:var(--border); border-radius:4px; height:6px; margin-top:8px; overflow:hidden; }
+    .prog-bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--accent2),var(--accent)); transition:width 0.6s ease; }
   </style>
 </head>
 <body>
 
-  <!-- ══════════ PÁGINA: INICIO ══════════ -->
-  <div class="page active" id="page-home">
+  <!-- ══════════════════════════════
+       ONBOARDING
+  ══════════════════════════════ -->
+  <div class="page" id="page-onboarding" style="padding:0; min-height:100vh;">
+
+    <!-- Paso 1: Bienvenida -->
+    <div class="ob-screen ob-active" id="ob-1">
+      <div>
+        <div class="ob-logo">KINEX<span>.</span></div>
+        <div class="ob-tagline">Tu app de desarrollo físico personal</div>
+      </div>
+      <div class="ob-hero">
+        <div class="ob-step-label">Bienvenido</div>
+        <div class="ob-title">Construye tu<br><em>mejor versión.</em></div>
+        <div class="ob-sub">KINEX te ayuda a registrar tus entrenos, controlar tu nutrición y ver tu progreso semana a semana.</div>
+        <div class="ob-field">
+          <label>¿Cómo te llamas?</label>
+          <input type="text" id="ob-nombre" placeholder="Tu nombre" autocomplete="off"/>
+        </div>
+      </div>
+      <div>
+        <div class="ob-dots">
+          <div class="ob-dot active"></div>
+          <div class="ob-dot"></div>
+          <div class="ob-dot"></div>
+          <div class="ob-dot"></div>
+        </div>
+        <button class="btn-main" onclick="obNext(1)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- Paso 2: Datos físicos -->
+    <div class="ob-screen" id="ob-2">
+      <div>
+        <div class="ob-logo">KINEX<span>.</span></div>
+      </div>
+      <div class="ob-hero">
+        <div class="ob-step-label">Paso 2 de 4</div>
+        <div class="ob-title">Tus datos<br><em>físicos.</em></div>
+        <div class="ob-sub">Para personalizar tu experiencia y calcular tus métricas.</div>
+        <div class="ob-fields2">
+          <div class="ob-field">
+            <label>Edad</label>
+            <input type="number" id="ob-edad" placeholder="25" min="10" max="100"/>
+          </div>
+          <div class="ob-field">
+            <label>Altura (cm)</label>
+            <input type="number" id="ob-altura" placeholder="175" min="100" max="250"/>
+          </div>
+        </div>
+        <div class="ob-fields2">
+          <div class="ob-field">
+            <label>Peso actual (kg)</label>
+            <input type="number" id="ob-peso" placeholder="75" step="0.1" min="30" max="300"/>
+          </div>
+          <div class="ob-field">
+            <label>Peso objetivo (kg)</label>
+            <input type="number" id="ob-peso-obj" placeholder="70" step="0.1" min="30" max="300"/>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ob-dots">
+          <div class="ob-dot"></div>
+          <div class="ob-dot active"></div>
+          <div class="ob-dot"></div>
+          <div class="ob-dot"></div>
+        </div>
+        <button class="btn-main" onclick="obNext(2)">Continuar →</button>
+        <button class="btn-sec" onclick="obBack(2)">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- Paso 3: Objetivo -->
+    <div class="ob-screen" id="ob-3">
+      <div>
+        <div class="ob-logo">KINEX<span>.</span></div>
+      </div>
+      <div class="ob-hero">
+        <div class="ob-step-label">Paso 3 de 4</div>
+        <div class="ob-title">¿Cuál es tu<br><em>objetivo?</em></div>
+        <div class="ob-sub">Esto personaliza tu dashboard y métricas.</div>
+        <div class="ob-options" id="ob-objetivos">
+          <div class="ob-option selected" data-val="bajar" onclick="selectObjetivo(this)">
+            <div class="ob-option-icon">🔥</div>
+            <div class="ob-option-text">
+              <div class="ob-option-title">Bajar de peso</div>
+              <div class="ob-option-sub">Quemar grasa y definir</div>
+            </div>
+          </div>
+          <div class="ob-option" data-val="ganar" onclick="selectObjetivo(this)">
+            <div class="ob-option-icon">💪</div>
+            <div class="ob-option-text">
+              <div class="ob-option-title">Ganar músculo</div>
+              <div class="ob-option-sub">Volumen y fuerza</div>
+            </div>
+          </div>
+          <div class="ob-option" data-val="mantener" onclick="selectObjetivo(this)">
+            <div class="ob-option-icon">⚡</div>
+            <div class="ob-option-text">
+              <div class="ob-option-title">Mantener y mejorar</div>
+              <div class="ob-option-sub">Rendimiento y salud general</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ob-dots">
+          <div class="ob-dot"></div>
+          <div class="ob-dot"></div>
+          <div class="ob-dot active"></div>
+          <div class="ob-dot"></div>
+        </div>
+        <button class="btn-main" onclick="obNext(3)">Continuar →</button>
+        <button class="btn-sec" onclick="obBack(3)">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- Paso 4: Meta calórica -->
+    <div class="ob-screen" id="ob-4">
+      <div>
+        <div class="ob-logo">KINEX<span>.</span></div>
+      </div>
+      <div class="ob-hero">
+        <div class="ob-step-label">Paso 4 de 4</div>
+        <div class="ob-title">Tu meta<br><em>calórica.</em></div>
+        <div class="ob-sub">Puedes usar la sugerida según tu objetivo, o ingresar la tuya.</div>
+        <div class="ob-field">
+          <label>Meta de calorías diarias</label>
+          <input type="number" id="ob-calorias" placeholder="2000" min="1000" max="6000"/>
+        </div>
+        <div id="ob-cal-sugerida" style="font-size:12px;color:var(--muted);margin-top:-8px;margin-bottom:16px;padding:0 4px;"></div>
+        <div class="ob-field">
+          <label>Sexo biológico</label>
+          <select id="ob-sexo">
+            <option value="m">Masculino</option>
+            <option value="f">Femenino</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div class="ob-dots">
+          <div class="ob-dot"></div>
+          <div class="ob-dot"></div>
+          <div class="ob-dot"></div>
+          <div class="ob-dot active"></div>
+        </div>
+        <button class="btn-main" onclick="obFinish()">¡Empezar KINEX! 🚀</button>
+        <button class="btn-sec" onclick="obBack(4)">← Atrás</button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════
+       PÁGINA: INICIO
+  ══════════════════════════════ -->
+  <div class="page" id="page-home">
     <div class="header">
       <div><div class="logo">KINEX<span>.</span></div><div class="date-lbl" id="f1"></div></div>
       <div class="theme-toggle">
@@ -166,10 +390,23 @@
         <button class="tbtn" onclick="setTheme('blue')">🔵</button>
       </div>
     </div>
-    <div class="greeting">
-      <h1>Buen día,<br><em id="saludo-nombre">atleta.</em></h1>
-      <p id="saludo-racha">Registra tu primer entreno hoy 💪</p>
+    <div class="greeting" style="margin-bottom:28px">
+      <h1 style="font-size:28px;font-weight:900;letter-spacing:-1.5px;line-height:1.1">
+        Hola,<br><em id="home-nombre" style="font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">atleta.</em>
+      </h1>
+      <p id="home-sub" style="font-size:13px;color:var(--muted);margin-top:6px">Cargando...</p>
     </div>
+
+    <!-- Progreso hacia objetivo de peso -->
+    <div class="card" style="margin-bottom:16px" id="home-prog-card">
+      <div class="card-label">Progreso hacia tu objetivo</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px">
+        <span id="home-prog-txt" style="font-size:13px;color:var(--muted)">—</span>
+        <span id="home-prog-pct" style="font-size:13px;font-weight:700;color:var(--accent2)">—</span>
+      </div>
+      <div class="prog-bar-wrap"><div class="prog-bar-fill" id="home-prog-bar" style="width:0%"></div></div>
+    </div>
+
     <div class="stats-grid">
       <div class="card accent">
         <div class="card-label">Peso actual</div>
@@ -177,9 +414,9 @@
         <div class="card-delta" id="home-peso-delta">Sin registros aún</div>
       </div>
       <div class="card">
-        <div class="card-label">Calorías hoy</div>
-        <div class="card-value">—</div>
-        <div class="card-delta">Próximamente</div>
+        <div class="card-label">Meta calórica</div>
+        <div class="card-value" id="home-calorias">—</div>
+        <div class="card-delta">kcal / día</div>
       </div>
       <div class="card">
         <div class="card-label">Entrenos semana</div>
@@ -198,7 +435,7 @@
         <span class="section-title">Actividad semanal</span>
         <span class="section-sub">Días con entreno</span>
       </div>
-      <div class="bars" id="home-bars">
+      <div class="bars">
         <div class="bar-col"><div class="bar-track"><div class="bar-fill" id="bar-0" style="height:0%"></div></div><div class="bar-day">L</div></div>
         <div class="bar-col"><div class="bar-track"><div class="bar-fill" id="bar-1" style="height:0%"></div></div><div class="bar-day">M</div></div>
         <div class="bar-col"><div class="bar-track"><div class="bar-fill" id="bar-2" style="height:0%"></div></div><div class="bar-day">X</div></div>
@@ -214,7 +451,9 @@
   </div>
 
 
-  <!-- ══════════ PÁGINA: ENTRENO ══════════ -->
+  <!-- ══════════════════════════════
+       PÁGINA: ENTRENO
+  ══════════════════════════════ -->
   <div class="page" id="page-entreno">
     <div class="header">
       <div><div class="logo">KINEX<span>.</span></div><div class="date-lbl" id="f2"></div></div>
@@ -225,19 +464,19 @@
     </div>
     <div class="page-title">Entreno <span>.</span></div>
     <div class="page-sub">Registra los ejercicios de hoy</div>
-
     <div id="entreno-lista"></div>
     <div id="entreno-empty" class="empty">
       <div class="empty-icon">💪</div>
       <div class="empty-title">Sin ejercicios aún</div>
-      <div class="empty-sub">Agrega tu primer ejercicio de hoy para empezar a construir tu historial.</div>
+      <div class="empty-sub">Agrega tu primer ejercicio de hoy.</div>
     </div>
-
     <button class="btn-main" onclick="abrirModalEjercicio()">+ Agregar ejercicio</button>
   </div>
 
 
-  <!-- ══════════ PÁGINA: NUTRICIÓN ══════════ -->
+  <!-- ══════════════════════════════
+       PÁGINA: NUTRICIÓN
+  ══════════════════════════════ -->
   <div class="page" id="page-nutricion">
     <div class="header">
       <div><div class="logo">KINEX<span>.</span></div><div class="date-lbl" id="f3"></div></div>
@@ -251,12 +490,14 @@
     <div class="empty">
       <div class="empty-icon">🍎</div>
       <div class="empty-title">Próximamente</div>
-      <div class="empty-sub">El módulo de nutrición llegará pronto. Podrás registrar comidas, calorías y macros.</div>
+      <div class="empty-sub">El módulo de nutrición llegará pronto.</div>
     </div>
   </div>
 
 
-  <!-- ══════════ PÁGINA: PESO ══════════ -->
+  <!-- ══════════════════════════════
+       PÁGINA: PESO
+  ══════════════════════════════ -->
   <div class="page" id="page-peso">
     <div class="header">
       <div><div class="logo">KINEX<span>.</span></div><div class="date-lbl" id="f4"></div></div>
@@ -267,7 +508,6 @@
     </div>
     <div class="page-title">Peso <span>.</span></div>
     <div class="page-sub">Registra y sigue tu evolución</div>
-
     <div class="weight-card">
       <div class="section-header">
         <span class="section-title">Tendencia reciente</span>
@@ -277,7 +517,6 @@
         <div style="color:var(--muted);font-size:12px;text-align:center;width:100%;padding-bottom:24px;">Registra tu primer peso para ver la gráfica</div>
       </div>
     </div>
-
     <div class="stats-grid" style="margin-bottom:16px">
       <div class="card accent">
         <div class="card-label">Peso actual</div>
@@ -285,18 +524,14 @@
         <div class="card-delta" id="peso-actual-delta">Sin registros</div>
       </div>
       <div class="card">
-        <div class="card-label">Cambio total</div>
-        <div class="card-value" id="peso-cambio">—</div>
-        <div class="card-delta" id="peso-cambio-delta">—</div>
+        <div class="card-label">Objetivo</div>
+        <div class="card-value" id="peso-objetivo">—</div>
+        <div class="card-delta" id="peso-obj-delta">—</div>
       </div>
     </div>
-
     <button class="btn-main" onclick="abrirModalPeso()">+ Registrar peso de hoy</button>
-
     <div class="divider"></div>
-    <div class="section-header" style="margin-bottom:12px">
-      <span class="section-title">Historial</span>
-    </div>
+    <div class="section-header" style="margin-bottom:12px"><span class="section-title">Historial</span></div>
     <div id="peso-lista"></div>
     <div id="peso-empty" class="empty" style="padding:24px">
       <div class="empty-icon">⚖️</div>
@@ -306,70 +541,146 @@
   </div>
 
 
+  <!-- ══════════════════════════════
+       PÁGINA: PERFIL
+  ══════════════════════════════ -->
+  <div class="page" id="page-perfil">
+    <div class="header">
+      <div><div class="logo">KINEX<span>.</span></div><div class="date-lbl" id="f5"></div></div>
+      <div class="theme-toggle">
+        <button class="tbtn active" onclick="setTheme('red')">🔴</button>
+        <button class="tbtn" onclick="setTheme('blue')">🔵</button>
+      </div>
+    </div>
+
+    <div class="perfil-avatar" id="perfil-avatar">👤</div>
+    <div class="perfil-name" id="perfil-nombre">—</div>
+    <div class="perfil-goal" id="perfil-goal">—</div>
+
+    <div class="perfil-stats">
+      <div class="perfil-stat">
+        <div class="perfil-stat-val" id="ps-edad">—</div>
+        <div class="perfil-stat-lbl">Años</div>
+      </div>
+      <div class="perfil-stat">
+        <div class="perfil-stat-val" id="ps-altura">—</div>
+        <div class="perfil-stat-lbl">Altura cm</div>
+      </div>
+      <div class="perfil-stat">
+        <div class="perfil-stat-val" id="ps-calorias">—</div>
+        <div class="perfil-stat-lbl">kcal/día</div>
+      </div>
+    </div>
+
+    <div class="perfil-section">
+      <div class="section-title" style="margin-bottom:12px">Mis datos</div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Peso actual</span>
+        <span class="perfil-row-val" id="pr-peso-actual">—</span>
+      </div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Peso objetivo</span>
+        <span class="perfil-row-val" id="pr-peso-obj">—</span>
+      </div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Por perder/ganar</span>
+        <span class="perfil-row-val" id="pr-diferencia">—</span>
+      </div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Objetivo</span>
+        <span class="perfil-row-val" id="pr-objetivo">—</span>
+      </div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">IMC aprox.</span>
+        <span class="perfil-row-val" id="pr-imc">—</span>
+      </div>
+    </div>
+
+    <div class="perfil-section">
+      <div class="section-title" style="margin-bottom:12px">Mi actividad</div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Ejercicios registrados</span>
+        <span class="perfil-row-val" id="pr-total-ej">0</span>
+      </div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Días entrenados</span>
+        <span class="perfil-row-val" id="pr-total-dias">0</span>
+      </div>
+      <div class="perfil-row">
+        <span class="perfil-row-label">Registros de peso</span>
+        <span class="perfil-row-val" id="pr-total-peso">0</span>
+      </div>
+    </div>
+
+    <button class="btn-main" onclick="abrirModalEditarPerfil()">✏️ Editar perfil</button>
+    <button class="danger-btn" onclick="confirmarReset()">🗑️ Resetear todos los datos</button>
+  </div>
+
+
   <!-- NAV -->
-  <nav class="nav">
+  <nav class="nav" id="main-nav">
     <button class="nav-btn active" id="nav-home" onclick="goTo('home')"><span class="icon">🏠</span>Inicio</button>
     <button class="nav-btn" id="nav-entreno" onclick="goTo('entreno')"><span class="icon">💪</span>Entreno</button>
     <button class="nav-btn" id="nav-nutricion" onclick="goTo('nutricion')"><span class="icon">🍎</span>Nutrición</button>
     <button class="nav-btn" id="nav-peso" onclick="goTo('peso')"><span class="icon">⚖️</span>Peso</button>
+    <button class="nav-btn" id="nav-perfil" onclick="goTo('perfil')"><span class="icon">👤</span>Perfil</button>
   </nav>
 
 
-  <!-- ══════════ MODAL: EJERCICIO ══════════ -->
+  <!-- MODAL: EJERCICIO -->
   <div class="modal-overlay" id="modal-ejercicio">
     <div class="modal">
       <div class="modal-title">Nuevo ejercicio <span>.</span></div>
-      <div class="field">
-        <label>Nombre del ejercicio</label>
-        <input type="text" id="ej-nombre" placeholder="Ej: Press de banca" />
-      </div>
-      <div class="field">
-        <label>Grupo muscular</label>
+      <div class="field"><label>Nombre</label><input type="text" id="ej-nombre" placeholder="Ej: Press de banca"/></div>
+      <div class="field"><label>Grupo muscular</label>
         <select id="ej-grupo">
-          <option value="Pecho">Pecho</option>
-          <option value="Espalda">Espalda</option>
-          <option value="Piernas">Piernas</option>
-          <option value="Hombros">Hombros</option>
-          <option value="Bíceps">Bíceps</option>
-          <option value="Tríceps">Tríceps</option>
-          <option value="Core">Core</option>
-          <option value="Cardio">Cardio</option>
-          <option value="Otro">Otro</option>
+          <option>Pecho</option><option>Espalda</option><option>Piernas</option>
+          <option>Hombros</option><option>Bíceps</option><option>Tríceps</option>
+          <option>Core</option><option>Cardio</option><option>Otro</option>
         </select>
       </div>
       <div class="fields-row">
-        <div class="field">
-          <label>Series</label>
-          <input type="number" id="ej-series" placeholder="4" min="1" max="20" />
-        </div>
-        <div class="field">
-          <label>Reps</label>
-          <input type="number" id="ej-reps" placeholder="10" min="1" max="100" />
-        </div>
-        <div class="field">
-          <label>Peso (kg)</label>
-          <input type="number" id="ej-peso" placeholder="60" min="0" step="0.5" />
-        </div>
+        <div class="field"><label>Series</label><input type="number" id="ej-series" placeholder="4" min="1"/></div>
+        <div class="field"><label>Reps</label><input type="number" id="ej-reps" placeholder="10" min="1"/></div>
+        <div class="field"><label>Peso kg</label><input type="number" id="ej-peso" placeholder="60" step="0.5" min="0"/></div>
       </div>
       <button class="btn-main" onclick="guardarEjercicio()">Guardar ejercicio</button>
       <button class="btn-sec" onclick="cerrarModales()">Cancelar</button>
     </div>
   </div>
 
-
-  <!-- ══════════ MODAL: PESO ══════════ -->
+  <!-- MODAL: PESO -->
   <div class="modal-overlay" id="modal-peso">
     <div class="modal">
       <div class="modal-title">Registrar peso <span>.</span></div>
-      <div class="field">
-        <label>Tu peso de hoy (kg)</label>
-        <input type="number" id="peso-input" placeholder="Ej: 78.5" step="0.1" min="30" max="300" />
-      </div>
-      <div class="field">
-        <label>Nota (opcional)</label>
-        <input type="text" id="peso-nota" placeholder="Ej: En ayunas" />
-      </div>
+      <div class="field"><label>Tu peso de hoy (kg)</label><input type="number" id="peso-input" placeholder="Ej: 78.5" step="0.1" min="30" max="300"/></div>
+      <div class="field"><label>Nota (opcional)</label><input type="text" id="peso-nota" placeholder="Ej: En ayunas"/></div>
       <button class="btn-main" onclick="guardarPeso()">Guardar peso</button>
+      <button class="btn-sec" onclick="cerrarModales()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- MODAL: EDITAR PERFIL -->
+  <div class="modal-overlay" id="modal-perfil">
+    <div class="modal">
+      <div class="modal-title">Editar perfil <span>.</span></div>
+      <div class="field"><label>Nombre</label><input type="text" id="ep-nombre" placeholder="Tu nombre"/></div>
+      <div class="fields-row2">
+        <div class="field"><label>Edad</label><input type="number" id="ep-edad" min="10" max="100"/></div>
+        <div class="field"><label>Altura (cm)</label><input type="number" id="ep-altura" min="100" max="250"/></div>
+      </div>
+      <div class="fields-row2">
+        <div class="field"><label>Peso objetivo</label><input type="number" id="ep-peso-obj" step="0.1"/></div>
+        <div class="field"><label>Meta calórica</label><input type="number" id="ep-calorias" min="1000"/></div>
+      </div>
+      <div class="field"><label>Objetivo</label>
+        <select id="ep-objetivo">
+          <option value="bajar">🔥 Bajar de peso</option>
+          <option value="ganar">💪 Ganar músculo</option>
+          <option value="mantener">⚡ Mantener y mejorar</option>
+        </select>
+      </div>
+      <button class="btn-main" onclick="guardarEditarPerfil()">Guardar cambios</button>
       <button class="btn-sec" onclick="cerrarModales()">Cancelar</button>
     </div>
   </div>
@@ -382,301 +693,385 @@
     const HOY = new Date();
     const FECHA_STR = `${DIAS[HOY.getDay()]}, ${HOY.getDate()} ${MESES[HOY.getMonth()]} ${HOY.getFullYear()}`;
     const FECHA_KEY = `${HOY.getFullYear()}-${HOY.getMonth()+1}-${HOY.getDate()}`;
-    ['f1','f2','f3','f4'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).textContent = FECHA_STR; });
+    ['f1','f2','f3','f4','f5'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=FECHA_STR; });
 
     // ── TEMA ──
     function setTheme(t) {
-      document.documentElement.classList.toggle('blue', t === 'blue');
-      document.querySelectorAll('.tbtn').forEach((b,i) => b.classList.toggle('active', (t==='red' && i%2===0)||(t==='blue' && i%2!==0)));
+      document.documentElement.classList.toggle('blue', t==='blue');
+      document.querySelectorAll('.tbtn').forEach((b,i) => b.classList.toggle('active',(t==='red'&&i%2===0)||(t==='blue'&&i%2!==0)));
       localStorage.setItem('kinex-tema', t);
     }
-    const temaGuardado = localStorage.getItem('kinex-tema') || 'red';
-    setTheme(temaGuardado);
+    setTheme(localStorage.getItem('kinex-tema') || 'red');
+
+    // ── PERFIL ──
+    function getPerfil() { return JSON.parse(localStorage.getItem('kinex-perfil') || 'null'); }
+    function savePerfil(p) { localStorage.setItem('kinex-perfil', JSON.stringify(p)); }
+
+    // ── ONBOARDING ──
+    let obData = { objetivo: 'bajar' };
+
+    function selectObjetivo(el) {
+      document.querySelectorAll('.ob-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      obData.objetivo = el.dataset.val;
+    }
+
+    function obNext(step) {
+      if (step === 1) {
+        const nombre = document.getElementById('ob-nombre').value.trim();
+        if (!nombre) { document.getElementById('ob-nombre').focus(); return; }
+        obData.nombre = nombre;
+      }
+      if (step === 2) {
+        const edad = parseInt(document.getElementById('ob-edad').value);
+        const altura = parseInt(document.getElementById('ob-altura').value);
+        const peso = parseFloat(document.getElementById('ob-peso').value);
+        const pesoObj = parseFloat(document.getElementById('ob-peso-obj').value);
+        if (!edad||!altura||!peso||!pesoObj) { alert('Por favor completa todos los campos'); return; }
+        obData.edad=edad; obData.altura=altura; obData.peso=peso; obData.pesoObj=pesoObj;
+        // Sugerir calorías
+        const cal = calcCaloriasBase(obData);
+        document.getElementById('ob-calorias').value = cal;
+        document.getElementById('ob-cal-sugerida').textContent = `💡 Sugerido según tu objetivo: ${cal} kcal`;
+      }
+      if (step === 3) {
+        const cal = calcCaloriasBase(obData);
+        document.getElementById('ob-calorias').value = document.getElementById('ob-calorias').value || cal;
+      }
+      document.getElementById('ob-'+step).classList.remove('ob-active');
+      document.getElementById('ob-'+(step+1)).classList.add('ob-active');
+    }
+
+    function obBack(step) {
+      document.getElementById('ob-'+step).classList.remove('ob-active');
+      document.getElementById('ob-'+(step-1)).classList.add('ob-active');
+    }
+
+    function calcCaloriasBase(d) {
+      if (!d.peso||!d.altura||!d.edad) return 2000;
+      // Mifflin-St Jeor simplificado
+      const bmr = 10*d.peso + 6.25*d.altura - 5*d.edad + (d.sexo==='f'?-161:5);
+      const tdee = Math.round(bmr * 1.4);
+      if (d.objetivo==='bajar') return Math.round(tdee*0.85);
+      if (d.objetivo==='ganar') return Math.round(tdee*1.1);
+      return tdee;
+    }
+
+    function obFinish() {
+      const calorias = parseInt(document.getElementById('ob-calorias').value);
+      const sexo = document.getElementById('ob-sexo').value;
+      if (!calorias) { document.getElementById('ob-calorias').focus(); return; }
+      obData.calorias = calorias;
+      obData.sexo = sexo;
+
+      savePerfil(obData);
+      // Guardar peso inicial
+      if (obData.peso) {
+        const pesos = JSON.parse(localStorage.getItem('kinex-pesos')||'[]');
+        pesos.push({ id: Date.now(), valor: obData.peso, nota: 'Peso inicial', fecha: FECHA_KEY, fechaStr: FECHA_STR });
+        localStorage.setItem('kinex-pesos', JSON.stringify(pesos));
+      }
+      document.getElementById('page-onboarding').classList.remove('active');
+      document.getElementById('main-nav').style.display = 'flex';
+      goTo('home');
+    }
 
     // ── NAVEGACIÓN ──
     function goTo(page) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('page-' + page).classList.add('active');
-      document.getElementById('nav-' + page).classList.add('active');
-      window.scrollTo(0, 0);
-      if(page === 'home') actualizarHome();
-      if(page === 'entreno') renderEjercicios();
-      if(page === 'peso') renderPeso();
+      document.getElementById('page-'+page).classList.add('active');
+      const navBtn = document.getElementById('nav-'+page);
+      if (navBtn) navBtn.classList.add('active');
+      window.scrollTo(0,0);
+      if(page==='home') actualizarHome();
+      if(page==='entreno') renderEjercicios();
+      if(page==='peso') renderPeso();
+      if(page==='perfil') renderPerfil();
     }
 
     // ── MODALES ──
-    function abrirModalEjercicio() {
-      document.getElementById('modal-ejercicio').classList.add('open');
-      document.getElementById('ej-nombre').focus();
+    function abrirModalEjercicio() { document.getElementById('modal-ejercicio').classList.add('open'); document.getElementById('ej-nombre').focus(); }
+    function abrirModalPeso() { document.getElementById('modal-peso').classList.add('open'); document.getElementById('peso-input').focus(); }
+    function abrirModalEditarPerfil() {
+      const p = getPerfil();
+      if (!p) return;
+      document.getElementById('ep-nombre').value = p.nombre||'';
+      document.getElementById('ep-edad').value = p.edad||'';
+      document.getElementById('ep-altura').value = p.altura||'';
+      document.getElementById('ep-peso-obj').value = p.pesoObj||'';
+      document.getElementById('ep-calorias').value = p.calorias||'';
+      document.getElementById('ep-objetivo').value = p.objetivo||'bajar';
+      document.getElementById('modal-perfil').classList.add('open');
     }
-    function abrirModalPeso() {
-      document.getElementById('modal-peso').classList.add('open');
-      document.getElementById('peso-input').focus();
-    }
-    function cerrarModales() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
-    }
-    document.querySelectorAll('.modal-overlay').forEach(m => {
-      m.addEventListener('click', e => { if(e.target === m) cerrarModales(); });
-    });
+    function cerrarModales() { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open')); }
+    document.querySelectorAll('.modal-overlay').forEach(m => { m.addEventListener('click', e => { if(e.target===m) cerrarModales(); }); });
 
-    // ══════════════════════════════
-    // EJERCICIOS
-    // ══════════════════════════════
-    function getEjercicios() {
-      return JSON.parse(localStorage.getItem('kinex-ejercicios') || '[]');
+    function guardarEditarPerfil() {
+      const p = getPerfil() || {};
+      p.nombre = document.getElementById('ep-nombre').value.trim() || p.nombre;
+      p.edad = parseInt(document.getElementById('ep-edad').value) || p.edad;
+      p.altura = parseInt(document.getElementById('ep-altura').value) || p.altura;
+      p.pesoObj = parseFloat(document.getElementById('ep-peso-obj').value) || p.pesoObj;
+      p.calorias = parseInt(document.getElementById('ep-calorias').value) || p.calorias;
+      p.objetivo = document.getElementById('ep-objetivo').value;
+      savePerfil(p);
+      cerrarModales();
+      renderPerfil();
+      actualizarHome();
     }
-    function saveEjercicios(data) {
-      localStorage.setItem('kinex-ejercicios', JSON.stringify(data));
-    }
+
+    // ── EJERCICIOS ──
+    function getEjercicios() { return JSON.parse(localStorage.getItem('kinex-ejercicios')||'[]'); }
+    function saveEjercicios(d) { localStorage.setItem('kinex-ejercicios', JSON.stringify(d)); }
 
     function guardarEjercicio() {
       const nombre = document.getElementById('ej-nombre').value.trim();
       const grupo  = document.getElementById('ej-grupo').value;
-      const series = parseInt(document.getElementById('ej-series').value) || 0;
-      const reps   = parseInt(document.getElementById('ej-reps').value) || 0;
-      const peso   = parseFloat(document.getElementById('ej-peso').value) || 0;
-
+      const series = parseInt(document.getElementById('ej-series').value)||0;
+      const reps   = parseInt(document.getElementById('ej-reps').value)||0;
+      const peso   = parseFloat(document.getElementById('ej-peso').value)||0;
       if (!nombre) { document.getElementById('ej-nombre').focus(); return; }
-      if (!series || !reps) { alert('Ingresa series y repeticiones'); return; }
-
+      if (!series||!reps) { alert('Ingresa series y repeticiones'); return; }
       const ejercicios = getEjercicios();
-      // Verificar PR
-      const historialEj = ejercicios.filter(e => e.nombre.toLowerCase() === nombre.toLowerCase());
-      const maxPrevio = historialEj.length ? Math.max(...historialEj.map(e => e.peso)) : -1;
-      const esPR = peso > 0 && peso > maxPrevio;
-
-      ejercicios.push({
-        id: Date.now(),
-        nombre, grupo, series, reps, peso,
-        fecha: FECHA_KEY,
-        fechaStr: FECHA_STR,
-        esPR
-      });
+      const histEj = ejercicios.filter(e => e.nombre.toLowerCase()===nombre.toLowerCase());
+      const maxPrev = histEj.length ? Math.max(...histEj.map(e=>e.peso)) : -1;
+      const esPR = peso>0 && peso>maxPrev;
+      ejercicios.push({ id:Date.now(), nombre, grupo, series, reps, peso, fecha:FECHA_KEY, fechaStr:FECHA_STR, esPR });
       saveEjercicios(ejercicios);
-
-      // Limpiar
-      ['ej-nombre','ej-series','ej-reps','ej-peso'].forEach(id => document.getElementById(id).value = '');
+      ['ej-nombre','ej-series','ej-reps','ej-peso'].forEach(id => document.getElementById(id).value='');
       cerrarModales();
       renderEjercicios();
     }
 
-    function eliminarEjercicio(id) {
-      const ejercicios = getEjercicios().filter(e => e.id !== id);
-      saveEjercicios(ejercicios);
-      renderEjercicios();
-      actualizarHome();
-    }
+    function eliminarEjercicio(id) { saveEjercicios(getEjercicios().filter(e=>e.id!==id)); renderEjercicios(); actualizarHome(); }
 
     function renderEjercicios() {
-      const ejercicios = getEjercicios();
-      const hoyEj = ejercicios.filter(e => e.fecha === FECHA_KEY);
+      const hoyEj = getEjercicios().filter(e=>e.fecha===FECHA_KEY);
       const lista = document.getElementById('entreno-lista');
       const empty = document.getElementById('entreno-empty');
-
-      if (hoyEj.length === 0) {
-        lista.innerHTML = '';
-        empty.style.display = 'flex';
-        return;
-      }
-      empty.style.display = 'none';
-
-      // Agrupar por grupo muscular
+      if (!hoyEj.length) { lista.innerHTML=''; empty.style.display='flex'; return; }
+      empty.style.display='none';
       const grupos = {};
-      hoyEj.forEach(e => {
-        if (!grupos[e.grupo]) grupos[e.grupo] = [];
-        grupos[e.grupo].push(e);
-      });
-
-      lista.innerHTML = Object.entries(grupos).map(([grupo, exs]) => `
+      hoyEj.forEach(e => { if(!grupos[e.grupo]) grupos[e.grupo]=[]; grupos[e.grupo].push(e); });
+      lista.innerHTML = Object.entries(grupos).map(([g,exs])=>`
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">${grupo}</span>
-            <span class="section-sub">${exs.length} ejercicio${exs.length>1?'s':''}</span>
-          </div>
-          ${exs.map(e => `
+          <div class="section-header"><span class="section-title">${g}</span><span class="section-sub">${exs.length} ejercicio${exs.length>1?'s':''}</span></div>
+          ${exs.map(e=>`
             <div class="ex-card">
               <div class="ex-card-top">
                 <div>
                   <div class="ex-card-name">${e.nombre}</div>
-                  <div class="ex-card-detail">${e.series} series · ${e.reps} reps${e.peso ? ' · ' + e.peso + ' kg' : ''}</div>
-                  ${e.esPR ? '<div class="pr-badge">🏆 Nuevo PR</div>' : ''}
+                  <div class="ex-card-detail">${e.series} series · ${e.reps} reps${e.peso?' · '+e.peso+' kg':''}</div>
+                  ${e.esPR?'<div class="pr-badge">🏆 Nuevo PR</div>':''}
                 </div>
                 <button class="ex-delete" onclick="eliminarEjercicio(${e.id})">✕</button>
               </div>
-            </div>
-          `).join('')}
-        </div>
-      `).join('');
+            </div>`).join('')}
+        </div>`).join('');
       actualizarHome();
     }
 
-    // ══════════════════════════════
-    // PESO
-    // ══════════════════════════════
-    function getPesos() {
-      return JSON.parse(localStorage.getItem('kinex-pesos') || '[]');
-    }
-    function savePesos(data) {
-      localStorage.setItem('kinex-pesos', JSON.stringify(data));
-    }
+    // ── PESO ──
+    function getPesos() { return JSON.parse(localStorage.getItem('kinex-pesos')||'[]'); }
+    function savePesos(d) { localStorage.setItem('kinex-pesos', JSON.stringify(d)); }
 
     function guardarPeso() {
       const val = parseFloat(document.getElementById('peso-input').value);
       const nota = document.getElementById('peso-nota').value.trim();
-      if (!val || val < 30 || val > 300) { alert('Ingresa un peso válido entre 30 y 300 kg'); return; }
-
-      const pesos = getPesos();
-      // Remover registro del mismo día si existe
-      const filtrados = pesos.filter(p => p.fecha !== FECHA_KEY);
-      filtrados.push({ id: Date.now(), valor: val, nota, fecha: FECHA_KEY, fechaStr: FECHA_STR });
-      filtrados.sort((a,b) => a.fecha.localeCompare(b.fecha));
-      savePesos(filtrados);
-
-      document.getElementById('peso-input').value = '';
-      document.getElementById('peso-nota').value = '';
+      if (!val||val<30||val>300) { alert('Ingresa un peso válido'); return; }
+      const pesos = getPesos().filter(p=>p.fecha!==FECHA_KEY);
+      pesos.push({ id:Date.now(), valor:val, nota, fecha:FECHA_KEY, fechaStr:FECHA_STR });
+      pesos.sort((a,b)=>a.fecha.localeCompare(b.fecha));
+      savePesos(pesos);
+      document.getElementById('peso-input').value='';
+      document.getElementById('peso-nota').value='';
       cerrarModales();
       renderPeso();
       actualizarHome();
     }
 
-    function eliminarPeso(id) {
-      savePesos(getPesos().filter(p => p.id !== id));
-      renderPeso();
-      actualizarHome();
-    }
+    function eliminarPeso(id) { savePesos(getPesos().filter(p=>p.id!==id)); renderPeso(); actualizarHome(); }
 
     function renderPeso() {
       const pesos = getPesos();
+      const perfil = getPerfil();
       const lista = document.getElementById('peso-lista');
       const empty = document.getElementById('peso-empty');
+
+      // Objetivo en card
+      if (perfil && perfil.pesoObj) {
+        document.getElementById('peso-objetivo').innerHTML = `${perfil.pesoObj}<span class="card-unit">kg</span>`;
+        if (pesos.length) {
+          const ultimo = pesos[pesos.length-1];
+          const diff = (ultimo.valor - perfil.pesoObj).toFixed(1);
+          const el = document.getElementById('peso-obj-delta');
+          if (diff > 0) { el.textContent = `Faltan ${diff} kg`; el.className='card-delta'; }
+          else if (diff < 0) { el.textContent = `Superaste tu meta 🎉`; el.className='card-delta green'; }
+          else { el.textContent = `¡Meta alcanzada! 🏆`; el.className='card-delta green'; }
+        } else { document.getElementById('peso-obj-delta').textContent='Tu meta de peso'; }
+      } else {
+        document.getElementById('peso-objetivo').textContent='—';
+        document.getElementById('peso-obj-delta').textContent='Sin objetivo';
+      }
+
+      if (pesos.length>0) {
+        const ultimo=pesos[pesos.length-1];
+        document.getElementById('peso-actual').innerHTML=`${ultimo.valor}<span class="card-unit">kg</span>`;
+        document.getElementById('peso-actual-delta').textContent=ultimo.nota||ultimo.fechaStr;
+        document.getElementById('peso-rango').textContent=`${pesos.length} registro${pesos.length>1?'s':''}`;
+      } else {
+        document.getElementById('peso-actual').textContent='—';
+        document.getElementById('peso-actual-delta').textContent='Sin registros';
+        document.getElementById('peso-rango').textContent='—';
+      }
+
+      // Trend
       const trend = document.getElementById('peso-trend');
-
-      // Stats
-      if (pesos.length > 0) {
-        const ultimo = pesos[pesos.length-1];
-        const primero = pesos[0];
-        const diff = (ultimo.valor - primero.valor).toFixed(1);
-        document.getElementById('peso-actual').innerHTML = `${ultimo.valor}<span>kg</span>`;
-        document.getElementById('peso-actual-delta').textContent = ultimo.nota || ultimo.fechaStr;
-        document.getElementById('peso-cambio').innerHTML = `${diff > 0 ? '+' : ''}${diff}<span>kg</span>`;
-        const deltaEl = document.getElementById('peso-cambio-delta');
-        if (diff < 0) { deltaEl.textContent = '↓ Bajaste peso 💪'; deltaEl.className = 'card-delta green'; }
-        else if (diff > 0) { deltaEl.textContent = '↑ Subiste peso'; deltaEl.className = 'card-delta'; }
-        else { deltaEl.textContent = 'Peso estable'; deltaEl.className = 'card-delta'; }
-        document.getElementById('peso-rango').textContent = `${pesos.length} registro${pesos.length>1?'s':''}`;
-      } else {
-        document.getElementById('peso-actual').textContent = '—';
-        document.getElementById('peso-actual-delta').textContent = 'Sin registros';
-        document.getElementById('peso-cambio').textContent = '—';
-        document.getElementById('peso-cambio-delta').textContent = '—';
-        document.getElementById('peso-rango').textContent = '—';
-      }
-
-      // Gráfica tendencia (últimos 6)
       const ultimos = pesos.slice(-6);
-      if (ultimos.length >= 2) {
-        const vals = ultimos.map(p => p.valor);
-        const min = Math.min(...vals) - 1;
-        const max = Math.max(...vals) + 1;
-        const range = max - min || 1;
-        trend.innerHTML = ultimos.map((p, i) => {
-          const pct = ((p.valor - min) / range * 60);
-          const isLast = i === ultimos.length - 1;
-          const label = p.fechaStr.split(',')[0].substring(0,3);
-          return `<div class="tw">
-            <div class="tw-val">${p.valor}</div>
-            <div class="tw-dot ${isLast?'active':''}" style="margin-bottom:${pct}px"></div>
-            <div class="tw-label">${label}</div>
-          </div>`;
+      if (ultimos.length>=2) {
+        const vals=ultimos.map(p=>p.valor), min=Math.min(...vals)-1, max=Math.max(...vals)+1, range=max-min||1;
+        trend.innerHTML=ultimos.map((p,i)=>{
+          const pct=((p.valor-min)/range*60);
+          const isLast=i===ultimos.length-1;
+          const label=p.fechaStr.split(',')[0].substring(0,3);
+          return `<div class="tw"><div class="tw-val">${p.valor}</div><div class="tw-dot ${isLast?'active':''}" style="margin-bottom:${pct}px"></div><div class="tw-label">${label}</div></div>`;
         }).join('');
-      } else if (ultimos.length === 1) {
-        trend.innerHTML = `<div style="color:var(--muted);font-size:12px;text-align:center;width:100%;padding-bottom:24px;">Agrega más registros para ver la tendencia</div>`;
       } else {
-        trend.innerHTML = `<div style="color:var(--muted);font-size:12px;text-align:center;width:100%;padding-bottom:24px;">Registra tu primer peso para ver la gráfica</div>`;
+        trend.innerHTML=`<div style="color:var(--muted);font-size:12px;text-align:center;width:100%;padding-bottom:24px;">${pesos.length===1?'Agrega más registros para ver la tendencia':'Registra tu primer peso para ver la gráfica'}</div>`;
       }
 
-      // Historial
-      if (pesos.length === 0) {
-        lista.innerHTML = '';
-        empty.style.display = 'flex';
-        return;
-      }
-      empty.style.display = 'none';
-
-      const pesosDesc = [...pesos].reverse();
-      lista.innerHTML = pesosDesc.map((p, i) => {
-        const prev = pesosDesc[i+1];
-        const diff = prev ? (p.valor - prev.valor).toFixed(1) : null;
-        const deltaClass = diff !== null ? (diff < 0 ? 'baja' : diff > 0 ? 'sube' : '') : '';
-        const deltaText = diff !== null ? (diff < 0 ? `↓ ${Math.abs(diff)} kg` : diff > 0 ? `↑ ${diff} kg` : '= igual') : 'Primer registro';
-        return `
-          <div class="peso-item">
-            <div>
-              <div class="peso-val">${p.valor}<span>kg</span></div>
-              <div class="peso-fecha">${p.fechaStr}${p.nota ? ' · '+p.nota : ''}</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px">
-              <div class="peso-delta ${deltaClass}">${deltaText}</div>
-              <button class="peso-delete" onclick="eliminarPeso(${p.id})">✕</button>
-            </div>
-          </div>
-        `;
+      if (!pesos.length) { lista.innerHTML=''; empty.style.display='flex'; return; }
+      empty.style.display='none';
+      lista.innerHTML=[...pesos].reverse().map((p,i,arr)=>{
+        const prev=arr[i+1];
+        const diff=prev?(p.valor-prev.valor).toFixed(1):null;
+        const dc=diff!==null?(diff<0?'baja':diff>0?'sube':''):'';
+        const dt=diff!==null?(diff<0?`↓ ${Math.abs(diff)} kg`:diff>0?`↑ ${diff} kg`:'= igual'):'Primer registro';
+        return `<div class="peso-item"><div><div class="peso-val">${p.valor}<span>kg</span></div><div class="peso-fecha">${p.fechaStr}${p.nota?' · '+p.nota:''}</div></div><div style="display:flex;align-items:center;gap:10px"><div class="peso-delta ${dc}">${dt}</div><button class="peso-delete" onclick="eliminarPeso(${p.id})">✕</button></div></div>`;
       }).join('');
     }
 
-    // ══════════════════════════════
-    // HOME: ACTUALIZAR STATS
-    // ══════════════════════════════
-    function actualizarHome() {
-      // Peso
+    // ── PERFIL PAGE ──
+    const OBJETIVO_LABELS = { bajar:'🔥 Bajar de peso', ganar:'💪 Ganar músculo', mantener:'⚡ Mantener y mejorar' };
+
+    function renderPerfil() {
+      const p = getPerfil();
+      if (!p) return;
+      const inicial = (p.nombre||'?')[0].toUpperCase();
+      document.getElementById('perfil-avatar').textContent = inicial;
+      document.getElementById('perfil-nombre').textContent = p.nombre || '—';
+      document.getElementById('perfil-goal').textContent = OBJETIVO_LABELS[p.objetivo] || '—';
+      document.getElementById('ps-edad').textContent = p.edad||'—';
+      document.getElementById('ps-altura').textContent = p.altura||'—';
+      document.getElementById('ps-calorias').textContent = p.calorias||'—';
+
       const pesos = getPesos();
-      if (pesos.length > 0) {
-        const ultimo = pesos[pesos.length-1];
-        document.getElementById('home-peso').innerHTML = `${ultimo.valor}<span class="card-unit">kg</span>`;
-        const prev = pesos.length > 1 ? pesos[pesos.length-2] : null;
-        if (prev) {
-          const d = (ultimo.valor - prev.valor).toFixed(1);
-          document.getElementById('home-peso-delta').textContent = d < 0 ? `↓ ${Math.abs(d)} kg desde ayer` : d > 0 ? `↑ ${d} kg desde ayer` : 'Igual que ayer';
-          document.getElementById('home-peso-delta').className = 'card-delta' + (d < 0 ? ' green' : '');
-        } else {
-          document.getElementById('home-peso-delta').textContent = 'Primer registro 🎯';
-        }
+      const ultimo = pesos.length ? pesos[pesos.length-1].valor : p.peso;
+      document.getElementById('pr-peso-actual').textContent = ultimo ? `${ultimo} kg` : '—';
+      document.getElementById('pr-peso-obj').textContent = p.pesoObj ? `${p.pesoObj} kg` : '—';
+
+      if (ultimo && p.pesoObj) {
+        const diff = (ultimo - p.pesoObj).toFixed(1);
+        document.getElementById('pr-diferencia').textContent = diff > 0 ? `${diff} kg por perder` : diff < 0 ? `${Math.abs(diff)} kg por ganar` : '¡Meta alcanzada! 🏆';
+      } else { document.getElementById('pr-diferencia').textContent='—'; }
+
+      document.getElementById('pr-objetivo').textContent = OBJETIVO_LABELS[p.objetivo]||'—';
+
+      if (ultimo && p.altura) {
+        const imc = (ultimo / Math.pow(p.altura/100, 2)).toFixed(1);
+        let cat = imc<18.5?'Bajo peso':imc<25?'Normal':imc<30?'Sobrepeso':'Obesidad';
+        document.getElementById('pr-imc').textContent = `${imc} (${cat})`;
+      } else { document.getElementById('pr-imc').textContent='—'; }
+
+      const ejercicios = getEjercicios();
+      const diasUnicos = [...new Set(ejercicios.map(e=>e.fecha))].length;
+      document.getElementById('pr-total-ej').textContent = ejercicios.length;
+      document.getElementById('pr-total-dias').textContent = diasUnicos;
+      document.getElementById('pr-total-peso').textContent = pesos.length;
+    }
+
+    function confirmarReset() {
+      if (confirm('⚠️ ¿Seguro que quieres borrar TODOS tus datos? Esta acción no se puede deshacer.')) {
+        ['kinex-perfil','kinex-ejercicios','kinex-pesos','kinex-tema'].forEach(k=>localStorage.removeItem(k));
+        location.reload();
+      }
+    }
+
+    // ── HOME ──
+    function actualizarHome() {
+      const perfil = getPerfil();
+      const pesos = getPesos();
+      const ejercicios = getEjercicios();
+
+      // Nombre
+      if (perfil) {
+        document.getElementById('home-nombre').textContent = (perfil.nombre||'atleta') + '.';
+        document.getElementById('home-calorias').textContent = perfil.calorias||'—';
+      }
+
+      // Saludo por hora
+      const h = HOY.getHours();
+      const saludo = h<12?'Buenos días':'h<18'?'Buenas tardes':'Buenas noches';
+      const hoyEj = ejercicios.filter(e=>e.fecha===FECHA_KEY);
+      document.getElementById('home-sub').textContent = hoyEj.length>0 ? `${hoyEj.length} ejercicio${hoyEj.length>1?'s':''} registrados hoy 💪` : 'Registra tu primer ejercicio hoy 🔥';
+
+      // Progreso peso
+      if (perfil && perfil.pesoObj && pesos.length) {
+        const ultimo = pesos[pesos.length-1].valor;
+        const inicio = pesos[0].valor;
+        const total = Math.abs(inicio - perfil.pesoObj);
+        const avance = Math.abs(inicio - ultimo);
+        const pct = total > 0 ? Math.min(100, Math.round(avance/total*100)) : 100;
+        const diff = Math.abs(ultimo - perfil.pesoObj).toFixed(1);
+        document.getElementById('home-prog-txt').textContent = diff==0 ? '¡Meta alcanzada! 🏆' : `Faltan ${diff} kg para tu objetivo`;
+        document.getElementById('home-prog-pct').textContent = `${pct}%`;
+        document.getElementById('home-prog-bar').style.width = pct+'%';
       } else {
-        document.getElementById('home-peso').textContent = '—';
-        document.getElementById('home-peso-delta').textContent = 'Sin registros aún';
+        document.getElementById('home-prog-txt').textContent = 'Registra tu peso para ver el progreso';
+        document.getElementById('home-prog-pct').textContent = '—';
+        document.getElementById('home-prog-bar').style.width = '0%';
+      }
+
+      // Peso
+      if (pesos.length) {
+        const ultimo=pesos[pesos.length-1];
+        document.getElementById('home-peso').innerHTML=`${ultimo.valor}<span class="card-unit">kg</span>`;
+        const prev=pesos.length>1?pesos[pesos.length-2]:null;
+        if (prev) {
+          const d=(ultimo.valor-prev.valor).toFixed(1);
+          document.getElementById('home-peso-delta').textContent=d<0?`↓ ${Math.abs(d)} kg`:d>0?`↑ ${d} kg`:'Sin cambio';
+          document.getElementById('home-peso-delta').className='card-delta'+(d<0?' green':'');
+        } else { document.getElementById('home-peso-delta').textContent='Primer registro 🎯'; }
+      } else {
+        document.getElementById('home-peso').textContent='—';
+        document.getElementById('home-peso-delta').textContent='Sin registros aún';
       }
 
       // Ejercicios hoy
-      const ejercicios = getEjercicios();
-      const hoyEj = ejercicios.filter(e => e.fecha === FECHA_KEY);
       document.getElementById('home-ejercicios').textContent = hoyEj.length;
-      document.getElementById('home-ejercicios-delta').textContent = hoyEj.length > 0 ? `${[...new Set(hoyEj.map(e=>e.grupo))].join(', ')}` : 'Sin registro';
+      document.getElementById('home-ejercicios-delta').textContent = hoyEj.length>0 ? [...new Set(hoyEj.map(e=>e.grupo))].join(', ') : 'Sin registro';
 
-      // Entrenos esta semana (días únicos con ejercicios)
-      const lunes = new Date(HOY);
-      lunes.setDate(HOY.getDate() - ((HOY.getDay()+6)%7));
-      const diasSemana = Array.from({length:7}, (_,i) => {
-        const d = new Date(lunes);
-        d.setDate(lunes.getDate() + i);
-        return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
-      });
-      const diasConEntreno = diasSemana.filter(dk => ejercicios.some(e => e.fecha === dk));
-      document.getElementById('home-entrenos').textContent = diasConEntreno.length;
-      document.getElementById('home-entrenos-delta').textContent = diasConEntreno.length > 0 ? '¡Sigue así! 🔥' : '¡Empieza hoy!';
-      document.getElementById('home-entrenos-delta').className = 'card-delta' + (diasConEntreno.length > 0 ? ' green' : '');
-
-      // Barras semanales
-      diasSemana.forEach((dk, i) => {
-        const cnt = ejercicios.filter(e => e.fecha === dk).length;
-        const bar = document.getElementById('bar-' + i);
-        if (bar) bar.style.height = cnt > 0 ? Math.min(100, 30 + cnt * 15) + '%' : '0%';
-      });
+      // Semana
+      const lunes=new Date(HOY); lunes.setDate(HOY.getDate()-((HOY.getDay()+6)%7));
+      const diasSemana=Array.from({length:7},(_,i)=>{ const d=new Date(lunes); d.setDate(lunes.getDate()+i); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; });
+      const diasConEntreno=diasSemana.filter(dk=>ejercicios.some(e=>e.fecha===dk));
+      document.getElementById('home-entrenos').textContent=diasConEntreno.length;
+      document.getElementById('home-entrenos-delta').textContent=diasConEntreno.length>0?'¡Sigue así! 🔥':'¡Empieza hoy!';
+      document.getElementById('home-entrenos-delta').className='card-delta'+(diasConEntreno.length>0?' green':'');
+      diasSemana.forEach((dk,i)=>{ const cnt=ejercicios.filter(e=>e.fecha===dk).length; const bar=document.getElementById('bar-'+i); if(bar) bar.style.height=cnt>0?Math.min(100,30+cnt*15)+'%':'0%'; });
     }
 
     // ── INIT ──
-    actualizarHome();
+    const perfil = getPerfil();
+    if (!perfil) {
+      // Primera vez: mostrar onboarding
+      document.getElementById('page-onboarding').classList.add('active');
+      document.getElementById('main-nav').style.display = 'none';
+    } else {
+      document.getElementById('main-nav').style.display = 'flex';
+      goTo('home');
+    }
   </script>
 </body>
 </html>
