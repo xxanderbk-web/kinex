@@ -248,14 +248,16 @@
 
     /* SERIES INDIVIDUALES */
     .series-lista { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
-    .serie-row { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.04); border:0.5px solid var(--border); border-radius:10px; padding:10px 12px; }
-    .serie-num { font-size:11px; font-weight:800; color:var(--accent2); width:20px; flex-shrink:0; }
+    .serie-row { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.04); border:0.5px solid var(--border); border-radius:10px; padding:8px 10px; }
+    .serie-num { font-size:11px; font-weight:800; color:var(--accent2); width:18px; flex-shrink:0; text-align:center; }
     .serie-inputs { display:flex; gap:6px; flex:1; }
-    .serie-input { flex:1; padding:8px 10px; background:rgba(255,255,255,0.06); border:0.5px solid var(--border); border-radius:8px; color:var(--text); font-size:14px; font-family:'Inter',sans-serif; outline:none; text-align:center; }
+    .serie-input { padding:8px 4px; background:rgba(255,255,255,0.06); border:0.5px solid var(--border); border-radius:8px; color:var(--text); font-size:15px; font-family:'Inter',sans-serif; outline:none; text-align:center; min-width:0; }
     .serie-input:focus { border-color:var(--accent); }
-    .serie-input::placeholder { color:var(--muted); font-size:12px; }
+    .serie-input::placeholder { color:var(--muted); font-size:11px; }
+    .serie-input-reps { width:56px; flex-shrink:0; }
+    .serie-input-peso { flex:1; }
     .serie-pr { font-size:10px; font-weight:700; color:var(--accent2); padding:2px 6px; border-radius:10px; border:0.5px solid var(--accent); white-space:nowrap; }
-    .serie-delete { background:none; border:none; color:var(--muted); font-size:14px; cursor:pointer; padding:2px; }
+    .serie-delete { background:none; border:none; color:var(--muted); font-size:14px; cursor:pointer; padding:2px; flex-shrink:0; }
     .serie-delete:hover { color:#f87171; }
     .add-serie-btn { width:100%; padding:10px; background:rgba(255,255,255,0.04); border:0.5px dashed var(--border); border-radius:10px; color:var(--muted); font-size:13px; font-weight:600; font-family:'Inter',sans-serif; cursor:pointer; transition:all 0.2s; margin-bottom:14px; }
     .add-serie-btn:hover { border-color:var(--accent); color:var(--accent2); }
@@ -602,17 +604,21 @@
   <div class="modal-overlay" id="modal-ejercicio">
     <div class="modal">
       <div class="modal-title">Nuevo ejercicio <span>.</span></div>
-      <div class="field"><label>Nombre del ejercicio</label><input type="text" id="ej-nombre" placeholder="Ej: Press de banca"/></div>
-      <div class="field"><label>Grupo muscular</label>
+      <div class="field">
+        <label>Nombre del ejercicio</label>
+        <input type="text" id="ej-nombre" placeholder="Ej: Press de banca" autocomplete="off" oninput="filtrarEjerciciosSugeridos()"/>
+        <div id="ej-sugeridos" style="display:none;margin-top:6px;display:flex;flex-direction:column;gap:4px;max-height:140px;overflow-y:auto;"></div>
+      </div>
+      <div class="field">
+        <label>Grupo muscular</label>
         <select id="ej-grupo"><option>Pecho</option><option>Espalda</option><option>Piernas</option><option>Hombros</option><option>Bíceps</option><option>Tríceps</option><option>Core</option><option>Cardio</option><option>Otro</option></select>
       </div>
 
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <label style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Series</label>
-        <div style="display:flex;gap:6px;font-size:10px;font-weight:600;color:var(--muted)">
-          <span style="width:60px;text-align:center">Reps</span>
-          <span style="width:70px;text-align:center">Peso (kg)</span>
-          <span style="width:24px"></span>
+        <div style="display:flex;gap:6px;font-size:10px;font-weight:600;color:var(--muted);padding-right:22px">
+          <span style="width:56px;text-align:center">Reps</span>
+          <span style="text-align:center;flex:1">Peso (kg)</span>
         </div>
       </div>
 
@@ -826,6 +832,64 @@
       document.getElementById('com-cantidad').value=a.cantidad;
     }
 
+    // ── BASE DE 50 EJERCICIOS ──
+    const EJERCICIOS_BASE = [
+      // PECHO
+      {nombre:'Press de banca',grupo:'Pecho'},{nombre:'Press de banca inclinado',grupo:'Pecho'},
+      {nombre:'Press de banca declinado',grupo:'Pecho'},{nombre:'Press con mancuernas',grupo:'Pecho'},
+      {nombre:'Aperturas con mancuernas',grupo:'Pecho'},{nombre:'Fondos en paralelas',grupo:'Pecho'},
+      {nombre:'Pullover',grupo:'Pecho'},{nombre:'Press en máquina',grupo:'Pecho'},
+      // ESPALDA
+      {nombre:'Peso muerto',grupo:'Espalda'},{nombre:'Dominadas',grupo:'Espalda'},
+      {nombre:'Remo con barra',grupo:'Espalda'},{nombre:'Remo con mancuerna',grupo:'Espalda'},
+      {nombre:'Jalón al pecho',grupo:'Espalda'},{nombre:'Remo en polea baja',grupo:'Espalda'},
+      {nombre:'Remo en máquina',grupo:'Espalda'},{nombre:'Pull-over en polea',grupo:'Espalda'},
+      // PIERNAS
+      {nombre:'Sentadilla',grupo:'Piernas'},{nombre:'Sentadilla frontal',grupo:'Piernas'},
+      {nombre:'Prensa de piernas',grupo:'Piernas'},{nombre:'Estocadas',grupo:'Piernas'},
+      {nombre:'Extensión de cuádriceps',grupo:'Piernas'},{nombre:'Curl de isquiotibiales',grupo:'Piernas'},
+      {nombre:'Peso muerto rumano',grupo:'Piernas'},{nombre:'Hip thrust',grupo:'Piernas'},
+      {nombre:'Elevación de talones',grupo:'Piernas'},{nombre:'Step up',grupo:'Piernas'},
+      // HOMBROS
+      {nombre:'Press militar',grupo:'Hombros'},{nombre:'Press Arnold',grupo:'Hombros'},
+      {nombre:'Elevaciones laterales',grupo:'Hombros'},{nombre:'Elevaciones frontales',grupo:'Hombros'},
+      {nombre:'Pájaro',grupo:'Hombros'},{nombre:'Press tras nuca',grupo:'Hombros'},
+      {nombre:'Encogimientos de hombros',grupo:'Hombros'},
+      // BÍCEPS
+      {nombre:'Curl con barra',grupo:'Bíceps'},{nombre:'Curl con mancuernas',grupo:'Bíceps'},
+      {nombre:'Curl martillo',grupo:'Bíceps'},{nombre:'Curl en polea',grupo:'Bíceps'},
+      {nombre:'Curl concentrado',grupo:'Bíceps'},{nombre:'Curl 21s',grupo:'Bíceps'},
+      // TRÍCEPS
+      {nombre:'Press francés',grupo:'Tríceps'},{nombre:'Extensión en polea',grupo:'Tríceps'},
+      {nombre:'Patada de tríceps',grupo:'Tríceps'},{nombre:'Fondos tríceps',grupo:'Tríceps'},
+      {nombre:'Press cerrado',grupo:'Tríceps'},
+      // CORE
+      {nombre:'Plancha',grupo:'Core'},{nombre:'Crunch abdominal',grupo:'Core'},
+      {nombre:'Rueda abdominal',grupo:'Core'},{nombre:'Elevación de piernas',grupo:'Core'},
+      {nombre:'Russian twist',grupo:'Core'},
+    ];
+
+    function filtrarEjerciciosSugeridos() {
+      const val = document.getElementById('ej-nombre').value.trim().toLowerCase();
+      const wrap = document.getElementById('ej-sugeridos');
+      if (!val) { wrap.style.display='none'; return; }
+      const matches = EJERCICIOS_BASE.filter(e=>e.nombre.toLowerCase().includes(val)).slice(0,5);
+      if (!matches.length) { wrap.style.display='none'; return; }
+      wrap.style.display='flex';
+      wrap.innerHTML = matches.map(e=>`
+        <div onclick="seleccionarEjercicioBase('${e.nombre.replace(/'/g,"\\'")}','${e.grupo}')"
+          style="padding:8px 12px;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+          <span style="font-weight:600">${e.nombre}</span>
+          <span style="font-size:10px;color:var(--muted);background:rgba(255,255,255,0.06);padding:2px 8px;border-radius:10px">${e.grupo}</span>
+        </div>`).join('');
+    }
+
+    function seleccionarEjercicioBase(nombre, grupo) {
+      document.getElementById('ej-nombre').value = nombre;
+      document.getElementById('ej-grupo').value = grupo;
+      document.getElementById('ej-sugeridos').style.display = 'none';
+    }
+
     // ── EJERCICIOS CON SERIES INDIVIDUALES ──
     let seriesTemp = [];
 
@@ -868,7 +932,7 @@
           <div class="serie-inputs">
             <input class="serie-input serie-input-reps" type="number" placeholder="Reps" min="1" value="${s.reps}"
               oninput="actualizarSerie(${i},'reps',this.value)"
-              onkeydown="if(event.key==='Tab'&&!event.shiftKey){event.preventDefault();document.querySelectorAll('.serie-input-peso')[${i}].focus();}"/>
+              onkeydown="if(event.key==='Tab'&&!event.shiftKey){event.preventDefault();this.closest('.serie-row').querySelector('.serie-input-peso').focus();}"/>
             <input class="serie-input serie-input-peso" type="number" placeholder="kg" min="0" step="0.5" value="${s.peso}"
               oninput="actualizarSerie(${i},'peso',this.value)"
               onkeydown="if(event.key==='Enter'){event.preventDefault();agregarSerie();}"/>
