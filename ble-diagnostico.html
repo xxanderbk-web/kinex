@@ -3,358 +3,354 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KINEX — Diagnóstico Balanza</title>
+  <title>KINEX — BLE Scanner</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet"/>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',sans-serif; background:#0d0d0d; color:#fff; min-height:100vh; padding:24px 20px 48px; max-width:420px; margin:0 auto; }
-    .logo { font-size:20px; font-weight:900; letter-spacing:-1px; margin-bottom:4px; }
-    .logo span { color:#E8402A; }
-    .subtitle { font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:24px; }
-    h1 { font-size:24px; font-weight:900; letter-spacing:-1px; margin-bottom:8px; line-height:1.1; }
-    h1 em { font-style:normal; background:linear-gradient(90deg,#E8402A,#ff6b4a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .desc { font-size:13px; color:rgba(255,255,255,0.5); line-height:1.6; margin-bottom:24px; }
-
-    .nota { background:rgba(250,204,21,0.06); border:0.5px solid rgba(250,204,21,0.25); border-radius:12px; padding:12px 14px; font-size:12px; color:rgba(255,255,255,0.65); line-height:1.6; margin-bottom:16px; }
-    .nota strong { color:#facc15; }
-    .nota-red { background:rgba(248,113,113,0.06); border:0.5px solid rgba(248,113,113,0.25); }
-    .nota-red strong { color:#f87171; }
-
-    .step { background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px 14px; margin-bottom:8px; display:flex; gap:10px; }
-    .step-num { width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,#E8402A,#6b0000); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; margin-top:1px; }
-    .step-text { font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5; }
-    .step-text strong { color:#fff; }
-
-    .btn { width:100%; padding:15px; border:none; border-radius:14px; font-size:14px; font-weight:700; font-family:'Inter',sans-serif; cursor:pointer; margin-bottom:10px; transition:all 0.2s; }
-    .btn-main { background:linear-gradient(135deg,#E8402A,#6b0000); color:#fff; }
-    .btn-main:active { transform:scale(0.98); }
-    .btn-main:disabled { opacity:0.35; cursor:not-allowed; }
-    .btn-sec { background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.6); }
-    .btn-green { background:linear-gradient(135deg,#22c55e,#064e1e); color:#fff; }
-
-    .card { background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px 14px; margin-bottom:10px; }
-    .card-label { font-size:10px; font-weight:700; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
-    .card-val { font-size:14px; font-weight:600; }
-    .ok { color:#4ade80; }
-    .err { color:#f87171; }
-    .warn { color:#facc15; }
-
-    .log { background:#070707; border:0.5px solid rgba(255,255,255,0.06); border-radius:10px; padding:12px; font-family:monospace; font-size:11px; line-height:1.9; color:rgba(255,255,255,0.5); max-height:280px; overflow-y:auto; margin-bottom:12px; word-break:break-all; }
-    .lg-info { color:#60a5fa; }
-    .lg-ok   { color:#4ade80; }
-    .lg-warn { color:#facc15; }
-    .lg-err  { color:#f87171; }
-    .lg-data { color:#c084fc; }
-    .lg-key  { color:#ff6b4a; }
-    .lg-ts   { color:rgba(255,255,255,0.2); }
-
-    .data-row { display:flex; justify-content:space-between; gap:8px; padding:6px 0; border-bottom:0.5px solid rgba(255,255,255,0.05); font-size:11px; }
-    .data-row:last-child { border-bottom:none; }
-    .dk { color:rgba(255,255,255,0.4); font-family:monospace; flex-shrink:0; }
-    .dv { color:#fff; font-weight:600; font-family:monospace; word-break:break-all; text-align:right; }
-
-    .divider { height:0.5px; background:rgba(255,255,255,0.07); margin:18px 0; }
-    #scan-section, #result-section { display:none; }
-
-    .pkt { background:rgba(192,132,252,0.08); border:0.5px solid rgba(192,132,252,0.2); border-radius:8px; padding:8px 10px; margin-bottom:6px; font-family:monospace; font-size:11px; }
-    .pkt-uuid { color:rgba(255,255,255,0.4); font-size:10px; margin-bottom:3px; }
-    .pkt-hex { color:#c084fc; }
-    .pkt-dec { color:rgba(255,255,255,0.5); font-size:10px; margin-top:2px; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#0d0d0d;color:#fff;min-height:100vh;padding:24px 20px 48px;max-width:420px;margin:0 auto}
+    .logo{font-size:20px;font-weight:900;letter-spacing:-1px;margin-bottom:4px}
+    .logo span{color:#E8402A}
+    .sub{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:24px}
+    h1{font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:8px;line-height:1.1}
+    h1 em{font-style:normal;background:linear-gradient(90deg,#E8402A,#ff6b4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    p{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:20px}
+    .btn{width:100%;padding:15px;border:none;border-radius:14px;font-size:14px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:10px;transition:all 0.2s}
+    .btn-main{background:linear-gradient(135deg,#E8402A,#6b0000);color:#fff}
+    .btn-main:active{transform:scale(0.98)}
+    .btn-main:disabled{opacity:0.35;cursor:not-allowed}
+    .btn-sec{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+    .btn-green{background:linear-gradient(135deg,#22c55e,#064e1e);color:#fff}
+    .nota{background:rgba(250,204,21,0.06);border:0.5px solid rgba(250,204,21,0.25);border-radius:12px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px}
+    .nota strong{color:#facc15}
+    .card{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+    .card-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+    .card-val{font-size:14px;font-weight:600}
+    .ok{color:#4ade80}.err{color:#f87171}.warn{color:#facc15}
+    .log{background:#070707;border:0.5px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;font-family:monospace;font-size:11px;line-height:1.9;color:rgba(255,255,255,0.5);max-height:260px;overflow-y:auto;margin-bottom:12px;word-break:break-all}
+    .li{color:#60a5fa}.lo{color:#4ade80}.lw{color:#facc15}.le{color:#f87171}.ld{color:#c084fc}.lk{color:#ff6b4a}.lt{color:rgba(255,255,255,0.2)}
+    .pkt{background:rgba(232,64,42,0.08);border:0.5px solid rgba(232,64,42,0.25);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+    .pkt-name{font-size:13px;font-weight:700;margin-bottom:4px}
+    .pkt-row{font-size:11px;font-family:monospace;color:rgba(255,255,255,0.6);padding:2px 0;word-break:break-all}
+    .pkt-row span{color:#ff6b4a;font-weight:700}
+    .divider{height:0.5px;background:rgba(255,255,255,0.07);margin:16px 0}
+    #scan-s,#result-s{display:none}
+    .big-btn{width:100%;padding:20px;border:none;border-radius:20px;font-size:17px;font-weight:900;font-family:'Inter',sans-serif;cursor:pointer;background:linear-gradient(135deg,#E8402A,#6b0000);color:#fff;margin-bottom:12px;letter-spacing:-0.5px;transition:all 0.2s}
+    .big-btn:active{transform:scale(0.97)}
+    .counter{font-size:48px;font-weight:900;letter-spacing:-3px;text-align:center;margin:16px 0;background:linear-gradient(90deg,#E8402A,#ff6b4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pulse{animation:pulse 1s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
   </style>
 </head>
 <body>
 
 <div class="logo">KINEX<span>.</span></div>
-<div class="subtitle">Diagnóstico BLE v2 — sin filtros</div>
+<div class="sub">BLE Scanner v3 — Advertisement mode</div>
 
-<!-- ══ INICIO ══ -->
-<div id="inicio-section">
-  <h1>Conectar<br><em>tu balanza.</em></h1>
-  <p class="desc">Versión mejorada — detecta cualquier balanza BLE sin importar el fabricante.</p>
+<!-- INICIO -->
+<div id="inicio-s">
+  <h1>Escáner<br><em>de balanza.</em></h1>
+  <p>Esta versión lee los datos que la balanza transmite en el aire, sin necesidad de conectarse. Más rápido y confiable.</p>
 
   <div class="nota">
-    <strong>⚠️ MUY IMPORTANTE:</strong> Debes abrir esta página desde<br>
-    <strong>xxanderbk-web.github.io/kinex/ble-diagnostico.html</strong><br>
-    en Chrome. No desde el archivo descargado.
+    <strong>⚡ Cómo usar:</strong><br>
+    1. Párate sobre la balanza y espera que encienda<br>
+    2. <strong>Mientras estás parado</strong>, toca el botón y selecciona <strong>"YGL4QESB"</strong><br>
+    3. Quédate quieto 20 segundos
   </div>
 
-  <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Activa la balanza</strong> — párate sobre ella hasta que encienda la pantalla LCD.</div></div>
-  <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Toca "Escanear balanza"</strong> — aparece el popup de Chrome. Verás una lista de dispositivos BLE cercanos. <strong>Busca uno sin nombre o con nombre raro</strong> — ese es tu balanza.</div></div>
-  <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Selecciónalo y quédate parado</strong> 30 segundos mientras se leen los datos.</div></div>
-  <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Toca "Copiar reporte"</strong> y pégalo en el chat con Claude.</div></div>
+  <div class="nota" style="background:rgba(74,222,128,0.05);border-color:rgba(74,222,128,0.2)">
+    <strong style="color:#4ade80">✓ Tu balanza detectada:</strong> <strong>YGL4QESB</strong><br>
+    Selecciónala en el popup de Chrome cuando aparezca.
+  </div>
 
-  <div class="divider"></div>
-  <button class="btn btn-main" id="btn-scan" onclick="iniciar()">📡 Escanear balanza</button>
-  <div id="ble-msg" style="font-size:12px;text-align:center;margin-top:-4px;color:rgba(255,255,255,0.35)"></div>
+  <button class="big-btn" id="btn-scan" onclick="iniciar()">
+    📡 Conectar YGL4QESB
+  </button>
+  <div id="ble-msg" style="font-size:12px;text-align:center;color:rgba(255,255,255,0.35);margin-top:-4px"></div>
 </div>
 
-<!-- ══ ESCANEANDO ══ -->
-<div id="scan-section">
-  <div class="card"><div class="card-label">Estado</div><div class="card-val" id="st-estado">Iniciando...</div></div>
-  <div class="card"><div class="card-label">Dispositivo</div><div class="card-val" id="st-device">—</div></div>
-  <div class="card"><div class="card-label">Paquetes recibidos</div><div class="card-val" id="st-pkts">0</div></div>
-  <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Log</div>
+<!-- ESCANEANDO -->
+<div id="scan-s">
+  <div class="card"><div class="card-lbl">Estado</div><div class="card-val" id="st-estado">Iniciando...</div></div>
+  <div class="card"><div class="card-lbl">Dispositivo</div><div class="card-val" id="st-dev">—</div></div>
+  <div class="counter pulse" id="st-counter">0</div>
+  <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px">paquetes capturados</div>
   <div class="log" id="log"></div>
-  <button class="btn btn-sec" onclick="detener()">✕ Detener</button>
+  <button class="btn btn-sec" onclick="detener()">✓ Listo — ver reporte</button>
 </div>
 
-<!-- ══ RESULTADO ══ -->
-<div id="result-section">
-  <div style="font-size:17px;font-weight:900;margin-bottom:4px">📊 Reporte capturado</div>
-  <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px">Mándalo a Claude para construir la integración</div>
+<!-- RESULTADO -->
+<div id="result-s">
+  <div style="font-size:17px;font-weight:900;margin-bottom:4px">📊 Datos capturados</div>
+  <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px">Reporte para Claude</div>
 
   <div class="card">
-    <div class="card-label">Dispositivo</div>
-    <div id="r-device"></div>
+    <div class="card-lbl">Dispositivo identificado</div>
+    <div class="card-val ok" id="r-dev">—</div>
+    <div id="r-dev-sub" style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px"></div>
   </div>
 
   <div class="card">
-    <div class="card-label">Servicios BLE</div>
-    <div id="r-servicios"></div>
+    <div class="card-lbl">Servicios BLE</div>
+    <div id="r-svc" style="font-size:12px;font-family:monospace;color:rgba(255,255,255,0.7)">—</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Características</div>
-    <div id="r-caracts"></div>
+    <div class="card-lbl">Características encontradas</div>
+    <div id="r-chars" style="font-size:11px;font-family:monospace;color:rgba(255,255,255,0.6);line-height:1.8">—</div>
   </div>
 
   <div class="card">
-    <div class="card-label">📦 Paquetes de datos (raw)</div>
-    <div id="r-pkts"><div style="color:rgba(255,255,255,0.3);font-size:12px;padding:4px 0">Sin paquetes aún — párate en la balanza</div></div>
+    <div class="card-lbl">📦 Paquetes raw (últimos 10)</div>
+    <div id="r-pkts"><div style="color:rgba(255,255,255,0.3);font-size:12px;padding:4px 0">Sin paquetes — párate en la balanza</div></div>
   </div>
 
   <div class="divider"></div>
-  <button class="btn btn-green" onclick="copiarReporte()">📋 Copiar reporte completo</button>
+  <button class="btn btn-green" onclick="copiar()">📋 Copiar reporte completo</button>
   <button class="btn btn-sec" onclick="reiniciar()">🔄 Escanear de nuevo</button>
 </div>
 
 <script>
-  let device = null, pkts = 0, reporte = { device:{}, servicios:[], pkts:[] };
+  let device=null, server=null, pkts=0, allPkts=[], reporteData={device:{},svc:[],chars:[],pkts:[]};
 
-  // Check BLE support
-  window.onload = () => {
-    const el = document.getElementById('ble-msg');
-    const btn = document.getElementById('btn-scan');
-    if (!navigator.bluetooth) {
-      el.textContent = '⚠️ Web Bluetooth no disponible — usa Chrome en Android';
-      el.style.color = '#f87171';
-      btn.disabled = true;
+  window.onload=()=>{
+    const msg=document.getElementById('ble-msg');
+    const btn=document.getElementById('btn-scan');
+    if(!navigator.bluetooth){
+      msg.textContent='⚠️ Usa Chrome en Android';
+      msg.style.color='#f87171';
+      btn.disabled=true;
     } else {
-      el.textContent = '✓ Web Bluetooth listo';
-      el.style.color = '#4ade80';
+      msg.textContent='✓ Web Bluetooth listo — abre desde GitHub Pages';
+      msg.style.color='#4ade80';
     }
   };
 
-  function mostrar(id) {
-    ['inicio-section','scan-section','result-section'].forEach(s =>
-      document.getElementById(s).style.display = s===id ? 'block' : 'none'
+  function mostrar(id){
+    ['inicio-s','scan-s','result-s'].forEach(s=>
+      document.getElementById(s).style.display=s===id?'block':'none'
     );
   }
 
-  function log(msg, cls='lg-info') {
-    const el = document.getElementById('log');
-    const ts = new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    el.innerHTML += `<span class="lg-ts">[${ts}]</span> <span class="${cls}">${msg}</span>\n`;
-    el.scrollTop = el.scrollHeight;
+  function log(msg,cls='li'){
+    const el=document.getElementById('log');
+    const ts=new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    el.innerHTML+=`<span class="lt">[${ts}]</span> <span class="${cls}">${msg}</span>\n`;
+    el.scrollTop=el.scrollHeight;
   }
 
-  function hex(buf) { return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(' '); }
-  function dec(buf) { return [...new Uint8Array(buf)].join(' '); }
+  function h(buf){return[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(' ');}
+  function d(buf){return[...new Uint8Array(buf)].join(' ');}
 
-  async function iniciar() {
-    mostrar('scan-section');
-    document.getElementById('st-estado').textContent = 'Buscando...';
-    log('Iniciando escaneo sin filtros...', 'lg-info');
-    log('Selecciona tu balanza en el popup de Chrome', 'lg-warn');
+  async function iniciar(){
+    mostrar('scan-s');
+    document.getElementById('st-estado').textContent='Buscando...';
+    log('Solicitando dispositivo...','li');
+    log('⚡ PÁRATE EN LA BALANZA AHORA','lw');
 
     try {
-      // Sin filtros — muestra TODOS los dispositivos BLE cercanos
-      device = await navigator.bluetooth.requestDevice({
-        acceptAllDevices: true,
-        optionalServices: [
-          // Estándares balanzas
-          '0000181d-0000-1000-8000-00805f9b34fb', // Weight Scale
-          '0000181b-0000-1000-8000-00805f9b34fb', // Body Composition
-          // Genéricas chinas más comunes
+      // Intentar primero con filtro por nombre conocido
+      let reqOpts;
+      try {
+        reqOpts = {
+          filters: [
+            {name: 'YGL4QESB'},
+            {namePrefix: 'YGL'},
+          ],
+          optionalServices: [
+            '0000fff0-0000-1000-8000-00805f9b34fb',
+            '0000ffe0-0000-1000-8000-00805f9b34fb',
+            '0000ffd0-0000-1000-8000-00805f9b34fb',
+            '0000181d-0000-1000-8000-00805f9b34fb',
+            '0000181b-0000-1000-8000-00805f9b34fb',
+            '0000ae00-0000-1000-8000-00805f9b34fb',
+            '0000fd00-0000-1000-8000-00805f9b34fb',
+            '0000180a-0000-1000-8000-00805f9b34fb',
+            '0000180f-0000-1000-8000-00805f9b34fb',
+          ]
+        };
+      } catch(e) {
+        reqOpts = { acceptAllDevices: true, optionalServices: [
           '0000fff0-0000-1000-8000-00805f9b34fb',
           '0000ffe0-0000-1000-8000-00805f9b34fb',
-          '0000ffd0-0000-1000-8000-00805f9b34fb',
-          '0000ffc0-0000-1000-8000-00805f9b34fb',
-          '0000ffb0-0000-1000-8000-00805f9b34fb',
-          '0000ffa0-0000-1000-8000-00805f9b34fb',
-          '0000ae00-0000-1000-8000-00805f9b34fb',
-          '0000fd00-0000-1000-8000-00805f9b34fb',
-          'f000ffc0-0451-4000-b000-000000000000',
-          // Info
-          '0000180a-0000-1000-8000-00805f9b34fb', // Device Info
-          '0000180f-0000-1000-8000-00805f9b34fb', // Battery
-          '00001800-0000-1000-8000-00805f9b34fb', // Generic Access
-        ]
-      });
-
-      const nombre = device.name || '(sin nombre)';
-      reporte.device = { nombre, id: device.id, ts: new Date().toISOString() };
-      log(`✓ Dispositivo: "${nombre}"`, 'lg-ok');
-      log(`ID: ${device.id}`, 'lg-data');
-      document.getElementById('st-device').textContent = nombre;
-      document.getElementById('st-device').className = 'card-val ok';
-      document.getElementById('st-estado').textContent = 'Conectando al GATT...';
-
-      device.addEventListener('gattserverdisconnected', () => {
-        log('⚠️ Dispositivo desconectado', 'lg-warn');
-        document.getElementById('st-estado').textContent = 'Desconectado';
-      });
-
-      const server = await device.gatt.connect();
-      log('✓ Conectado GATT', 'lg-ok');
-      document.getElementById('st-estado').textContent = 'Conectado ✓ — leyendo servicios...';
-      document.getElementById('st-estado').className = 'card-val ok';
-
-      const servicios = await server.getPrimaryServices();
-      log(`✓ ${servicios.length} servicio(s) encontrado(s)`, 'lg-ok');
-
-      for (const svc of servicios) {
-        const uuid = svc.uuid;
-        const svcData = { uuid, caracts: [] };
-        reporte.servicios.push(svcData);
-        log(`Servicio: ${uuid}`, 'lg-key');
-
-        try {
-          const caracts = await svc.getCharacteristics();
-          for (const c of caracts) {
-            const cuuid = c.uuid;
-            const props = Object.keys(c.properties).filter(k=>c.properties[k]).join(' | ');
-            log(`  Caract: ${cuuid} [${props}]`, 'lg-data');
-            const cData = { uuid: cuuid, props, valor: null };
-            svcData.caracts.push(cData);
-
-            // Leer si es readable
-            if (c.properties.read) {
-              try {
-                const v = await c.readValue();
-                const h = hex(v.buffer), d = dec(v.buffer);
-                log(`    READ hex: ${h}`, 'lg-ok');
-                cData.valor = { hex: h, dec: d };
-              } catch(e) { log(`    Read fail: ${e.message}`, 'lg-warn'); }
-            }
-
-            // Suscribir notificaciones
-            if (c.properties.notify || c.properties.indicate) {
-              try {
-                await c.startNotifications();
-                c.addEventListener('characteristicvaluechanged', ev => {
-                  const v = ev.target.value;
-                  const h = hex(v.buffer), d = dec(v.buffer);
-                  pkts++;
-                  document.getElementById('st-pkts').textContent = pkts + ' paquete(s)';
-                  log(`📦 NOTIF [${cuuid.substring(4,8)}]: ${h}`, 'lg-key');
-
-                  const pkt = { uuid: cuuid, hex: h, dec: d, ts: new Date().toISOString() };
-                  reporte.pkts.push(pkt);
-
-                  // Mostrar en resultado
-                  const el = document.getElementById('r-pkts');
-                  const div = document.createElement('div');
-                  div.className = 'pkt';
-                  div.innerHTML = `<div class="pkt-uuid">${cuuid}</div><div class="pkt-hex">${h}</div><div class="pkt-dec">${d}</div>`;
-                  if (el.querySelector('div[style]')) el.innerHTML = '';
-                  el.prepend(div);
-                });
-                log(`    ✓ Suscrito notificaciones`, 'lg-ok');
-              } catch(e) { log(`    Notify fail: ${e.message}`, 'lg-warn'); }
-            }
-          }
-        } catch(e) { log(`  Caracts error: ${e.message}`, 'lg-err'); }
+          '0000181d-0000-1000-8000-00805f9b34fb',
+          '0000181b-0000-1000-8000-00805f9b34fb',
+        ]};
       }
 
-      log('', 'lg-info');
-      log('═══════════════════════════', 'lg-info');
-      log('✓ Escaneo listo', 'lg-ok');
-      log('¡PÁRATE EN LA BALANZA AHORA!', 'lg-warn');
-      log('Espera 30 segundos para capturar datos', 'lg-warn');
-      log('═══════════════════════════', 'lg-info');
+      device = await navigator.bluetooth.requestDevice(reqOpts);
+      const nombre = device.name || '(sin nombre)';
+      log(`✓ Seleccionado: "${nombre}"`, 'lo');
+      document.getElementById('st-dev').textContent = nombre;
+      document.getElementById('st-dev').className = 'card-val ok';
+      reporteData.device = { nombre, id: device.id };
 
-      // Llenar panel resultado en paralelo
-      llenarResultado(servicios);
+      device.addEventListener('gattserverdisconnected', () => {
+        log('Desconectado — intentando reconectar...', 'lw');
+        setTimeout(() => conectarGATT(), 1000);
+      });
 
-      // Pasar a resultado después de 30 segundos o manualmente
-      document.getElementById('st-estado').textContent = '✓ Activo — esperando datos balanza';
+      await conectarGATT();
 
     } catch(e) {
-      log(`✕ ${e.message}`, 'lg-err');
-      if (e.name === 'NotFoundError') log('Cancelado por el usuario', 'lg-warn');
-      else if (e.message.includes('Bluetooth')) log('Activa el Bluetooth del celular', 'lg-warn');
-      else if (e.message.includes('Connection')) log('No se pudo conectar. Activa la balanza y vuelve a intentar.', 'lg-warn');
-      setTimeout(() => mostrar('inicio-section'), 2500);
+      log(`✕ ${e.message}`, 'le');
+      if(e.message.includes('cancelled')||e.name==='NotFoundError'){
+        log('Cancelado. Intenta de nuevo.','lw');
+      }
+      setTimeout(()=>mostrar('inicio-s'), 2000);
     }
   }
 
-  function llenarResultado(servicios) {
-    // Device
-    document.getElementById('r-device').innerHTML = `
-      <div class="data-row"><span class="dk">Nombre</span><span class="dv">${reporte.device.nombre}</span></div>
-      <div class="data-row"><span class="dk">ID</span><span class="dv" style="font-size:9px">${reporte.device.id}</span></div>
-      <div class="data-row"><span class="dk">Servicios</span><span class="dv">${servicios.length}</span></div>`;
-
-    // Servicios
-    const sEl = document.getElementById('r-servicios');
-    sEl.innerHTML = '';
-    reporte.servicios.forEach(s => {
-      const d = document.createElement('div');
-      d.className = 'data-row';
-      d.innerHTML = `<span class="dk">${s.uuid.substring(4,8)}</span><span class="dv">${s.uuid}</span>`;
-      sEl.appendChild(d);
-    });
-
-    // Características
-    const cEl = document.getElementById('r-caracts');
-    cEl.innerHTML = '';
-    reporte.servicios.forEach(s => {
-      s.caracts.forEach(c => {
-        const d = document.createElement('div');
-        d.className = 'data-row';
-        d.innerHTML = `<span class="dk">${c.uuid.substring(4,8)}</span><span class="dv">${c.props}</span>`;
-        cEl.appendChild(d);
-        if (c.valor) {
-          const d2 = document.createElement('div');
-          d2.className = 'data-row';
-          d2.innerHTML = `<span class="dk" style="padding-left:8px">└ val</span><span class="dv" style="color:#4ade80">${c.valor.hex}</span>`;
-          cEl.appendChild(d2);
+  async function conectarGATT() {
+    const MAX_RETRIES = 5;
+    for(let i=0; i<MAX_RETRIES; i++) {
+      try {
+        log(`Conectando GATT (intento ${i+1}/${MAX_RETRIES})...`, 'li');
+        document.getElementById('st-estado').textContent = `Conectando... intento ${i+1}`;
+        server = await device.gatt.connect();
+        log('✓ GATT conectado!', 'lo');
+        document.getElementById('st-estado').textContent = '✓ Conectado — leyendo...';
+        document.getElementById('st-estado').className = 'card-val ok';
+        await explorarServicios();
+        return;
+      } catch(e) {
+        log(`Intento ${i+1} fallido: ${e.message}`, 'lw');
+        if(i < MAX_RETRIES-1) {
+          log(`Reintentando en 2s... (párate en la balanza)`, 'lw');
+          await new Promise(r => setTimeout(r, 2000));
         }
-      });
-    });
+      }
+    }
+    log('No se pudo conectar después de varios intentos.', 'le');
+    log('Mostrando reporte parcial...', 'lw');
+    mostrar('result-s');
+    rellenarResultado();
+  }
+
+  async function explorarServicios() {
+    log('Obteniendo servicios...', 'li');
+    let servicios = [];
+    try {
+      servicios = await server.getPrimaryServices();
+      log(`✓ ${servicios.length} servicio(s)`, 'lo');
+    } catch(e) {
+      log(`Error servicios: ${e.message}`, 'le');
+    }
+
+    reporteData.svc = servicios.map(s=>s.uuid);
+    document.getElementById('r-svc').textContent = reporteData.svc.join('\n') || '(ninguno)';
+
+    let allChars = [];
+    for(const svc of servicios) {
+      log(`Servicio: ${svc.uuid}`, 'lk');
+      try {
+        const chars = await svc.getCharacteristics();
+        for(const c of chars) {
+          const props = Object.keys(c.properties).filter(k=>c.properties[k]).join('|');
+          log(`  Caract: ${c.uuid} [${props}]`, 'ld');
+          allChars.push({uuid: c.uuid, props, svc: svc.uuid});
+          reporteData.chars = allChars;
+
+          // Leer valor
+          if(c.properties.read) {
+            try {
+              const v = await c.readValue();
+              const hx = h(v.buffer), dc = d(v.buffer);
+              log(`    val: ${hx}`, 'lo');
+              allChars[allChars.length-1].valor = {hex:hx, dec:dc};
+            } catch(e) { log(`    read err: ${e.message}`, 'lw'); }
+          }
+
+          // Notificaciones
+          if(c.properties.notify || c.properties.indicate) {
+            try {
+              await c.startNotifications();
+              c.addEventListener('characteristicvaluechanged', ev => {
+                const v = ev.target.value;
+                const hx = h(v.buffer), dc = d(v.buffer);
+                pkts++;
+                document.getElementById('st-counter').textContent = pkts;
+                log(`📦 [${c.uuid.substring(4,8)}] ${hx}`, 'lk');
+
+                const pkt = {uuid:c.uuid, hex:hx, dec:dc, ts:new Date().toISOString()};
+                allPkts.push(pkt);
+                reporteData.pkts = allPkts;
+
+                // Mostrar en resultado
+                const el = document.getElementById('r-pkts');
+                if(el.querySelector('div[style]')) el.innerHTML='';
+                const div = document.createElement('div');
+                div.className='pkt';
+                div.innerHTML=`<div class="pkt-name">${c.uuid.substring(4,8).toUpperCase()}</div>
+                  <div class="pkt-row"><span>HEX:</span> ${hx}</div>
+                  <div class="pkt-row"><span>DEC:</span> ${dc}</div>
+                  <div class="pkt-row"><span>TS:</span>  ${new Date().toLocaleTimeString('es')}</div>`;
+                el.prepend(div);
+                if(el.children.length > 10) el.lastChild.remove();
+              });
+              log(`    ✓ Suscrito notificaciones`, 'lo');
+            } catch(e) { log(`    notify err: ${e.message}`, 'lw'); }
+          }
+        }
+      } catch(e) { log(`  chars err: ${e.message}`, 'le'); }
+    }
+
+    rellenarResultado();
+    log('', 'li');
+    log('══════════════════════════', 'li');
+    log('✓ LISTO — QUÉDATE PARADO', 'lo');
+    log('Capturando datos 30 segundos...', 'lw');
+    log('══════════════════════════', 'li');
+
+    // Auto-mostrar resultado en 30s
+    setTimeout(() => {
+      if(document.getElementById('scan-s').style.display !== 'none') {
+        mostrar('result-s');
+      }
+    }, 30000);
+  }
+
+  function rellenarResultado() {
+    document.getElementById('r-dev').textContent = reporteData.device.nombre || '—';
+    document.getElementById('r-dev-sub').textContent = reporteData.device.id || '';
+    document.getElementById('r-svc').textContent = (reporteData.svc||[]).join('\n') || '(ninguno detectado)';
+    document.getElementById('r-chars').innerHTML = (reporteData.chars||[]).map(c=>
+      `${c.uuid} [${c.props}]${c.valor?'\n  → '+c.valor.hex:''}`
+    ).join('\n') || '(ninguna)';
   }
 
   function detener() {
-    if (device?.gatt?.connected) device.gatt.disconnect();
-    mostrar('result-section');
+    rellenarResultado();
+    mostrar('result-s');
   }
 
   function reiniciar() {
-    if (device?.gatt?.connected) device.gatt.disconnect();
-    device = null; pkts = 0; reporte = { device:{}, servicios:[], pkts:[] };
-    document.getElementById('log').innerHTML = '';
-    document.getElementById('st-pkts').textContent = '0';
-    mostrar('inicio-section');
+    if(device?.gatt?.connected) device.gatt.disconnect();
+    device=null; server=null; pkts=0; allPkts=[];
+    reporteData={device:{},svc:[],chars:[],pkts:[]};
+    document.getElementById('log').innerHTML='';
+    document.getElementById('st-counter').textContent='0';
+    document.getElementById('r-pkts').innerHTML='<div style="color:rgba(255,255,255,0.3);font-size:12px;padding:4px 0">Sin paquetes aún</div>';
+    mostrar('inicio-s');
   }
 
-  function copiarReporte() {
+  function copiar() {
     const txt = JSON.stringify({
-      app: 'KINEX BLE Diagnostico v2',
+      app:'KINEX BLE v3',
       fecha: new Date().toISOString(),
-      ...reporte,
-      log: document.getElementById('log')?.innerText || ''
+      ...reporteData,
+      log: document.getElementById('log')?.innerText||''
     }, null, 2);
 
     navigator.clipboard.writeText(txt)
-      .then(() => alert('✓ Reporte copiado. Pégalo en el chat con Claude.'))
-      .catch(() => {
-        const ta = document.createElement('textarea');
-        ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+      .then(()=>alert('✓ Copiado — pégalo en el chat con Claude'))
+      .catch(()=>{
+        const ta=document.createElement('textarea');
+        ta.value=txt; ta.style.cssText='position:fixed;opacity:0';
         document.body.appendChild(ta); ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        alert('✓ Reporte copiado.');
+        alert('✓ Copiado');
       });
   }
 </script>
